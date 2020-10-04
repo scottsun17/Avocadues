@@ -10,4 +10,4 @@
 
 ## ER Diagram
 
-![ER_Diagram](img\ER_Diagram.jpg)
+![ER_Diagram](img/ER_Diagram.jpg)
