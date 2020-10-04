@@ -1,5 +1,13 @@
 # Avocadues
 
+## Road Map
 
 
-![projectmap](./projectmap.png)
+
+![projectmap](img/projectmap.png)
+
+
+
+## ER Diagram
+
+![ER_Diagram](img\ER_Diagram.jpg)
