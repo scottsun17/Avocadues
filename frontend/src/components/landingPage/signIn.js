@@ -1,13 +1,16 @@
 import React from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Link from '@material-ui/core/Link';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+
+// form
 import { useForm } from "react-hook-form";
-import { Box, Button, Checkbox, Divider, Grid, IconButton, Paper } from '@material-ui/core';
+
+// material ui
+import { makeStyles } from '@material-ui/core/styles';
+import { Box, Button, Checkbox, Divider, Grid, IconButton, Paper, Typography, Container, Link, CssBaseline } from '@material-ui/core';
 import { grey } from '@material-ui/core/colors';
-import img from '../../assets/imgs/logo.png';
+// framer motion
+import { motion } from "framer-motion";
+
+//css
 import '../../css/App.css'
 
 // icons
@@ -15,6 +18,7 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import googleIcon from '../../assets/imgs/icons/Google.png'
+import img from '../../assets/imgs/logo.png';
 
 function Copyright() {
     return (
@@ -36,6 +40,9 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         borderRadius: theme.spacing(2),
         padding: theme.spacing(4)
+    },
+    title: {
+        marginTop: theme.spacing(2)
     },
     form: {
         width: '100%', // Fix IE 11 issue.
@@ -77,8 +84,20 @@ export default function SignIn() {
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Paper className={classes.paper}>
-                <img width="80px" src={img} alt="logo"/>
-                <Typography component="h1" variant="h5">
+                <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ rotate: 360, scale: 1 }}
+                    transition={{
+                        type: "spring",
+                        stiffness: 260,
+                        damping: 20
+                    }}
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.8 }}
+                >
+                    <img width="80px" src={img} alt="logo"/>
+                </motion.div>    
+                <Typography component="h1" variant="h5" className={classes.title}>
                     Sign in
                 </Typography>
                 <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
