@@ -5,10 +5,16 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useForm } from "react-hook-form";
-import { Box, Button, Checkbox, Grid, Paper } from '@material-ui/core';
+import { Box, Button, Checkbox, Divider, Grid, IconButton, Paper } from '@material-ui/core';
 import { grey } from '@material-ui/core/colors';
 import img from '../../assets/imgs/logo.png';
 import '../../css/App.css'
+
+// icons
+import FacebookIcon from '@material-ui/icons/Facebook';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import GitHubIcon from '@material-ui/icons/GitHub';
+import googleIcon from '../../assets/imgs/icons/Google.png'
 
 function Copyright() {
     return (
@@ -31,10 +37,6 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: theme.spacing(2),
         padding: theme.spacing(4)
     },
-    // avatar: {
-    //     margin: theme.spacing(1),
-    //     backgroundColor: theme.palette.secondary.main,
-    // },
     form: {
         width: '100%', // Fix IE 11 issue.
         marginTop: theme.spacing(3),
@@ -56,6 +58,9 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(0.5, 0, 1.5, 0),
         padding: theme.spacing(1.5),
     },
+    otherSignin: {
+        width: "100%"
+    }
 }));
 
 export default function SignIn() {
@@ -72,14 +77,10 @@ export default function SignIn() {
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Paper className={classes.paper}>
-                {/* <Avatar className={classes.avatar}> */}
-                    {/* <LockOutlinedIcon /> */}
-                    <img width="80px" src={img} alt="logo"/>
-                {/* </Avatar> */}
+                <img width="80px" src={img} alt="logo"/>
                 <Typography component="h1" variant="h5">
                     Sign in
                 </Typography>
-
                 <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
                     <Grid container alignItems="center">
                         <Grid item xs={12}>
@@ -90,15 +91,29 @@ export default function SignIn() {
                             <input name="password" type="password" ref={register({ required: true })} className={classes.inputCard} placeholder="Password *" />
                             {errors.password && <Typography variant="caption" component="p" color="error" style={{marginBottom: "4px"}}>This field is required</Typography>}
                         </Grid>
-                        <Grid item xs={12}>
-                            <Checkbox size="small"></Checkbox><Typography variant="body2" component="span" >Remeber me</Typography>
+                        <Grid item xs={12} container alignItems="baseline">
+                            <Grid item xs align="left">
+                                <Checkbox size="small"></Checkbox><Typography variant="body2" component="span" >Remeber me</Typography>
+                            </Grid>
+                            <Grid item xs align="right">
+                                <Link><Typography variant="body2" component="span" >Forgot Password?</Typography></Link>
+                            </Grid>
                         </Grid>
                         <Grid item xs={12}>
                             <Button variant="contained" fullWidth type="submit" disableElevation className={`btn-grad ${classes.submit}`}>Sign In</Button>
                         </Grid>
-
                     </Grid>
                 </form>
+                <Box mt={2} className={classes.otherSignin} textAlign="center">
+                    <Divider light />
+                    <Typography variant="caption" component="span" >or sign in with social networks</Typography>
+                </Box>
+                <Box>
+                    <IconButton ><FacebookIcon /></IconButton>
+                    <IconButton ><LinkedInIcon /></IconButton>
+                    <IconButton ><GitHubIcon  style={{fontSize: "18px"}}/></IconButton>
+                    <IconButton ><img width="32px" alt="google" src={googleIcon}/></IconButton>
+                </Box>
                 <Box mt={2}>
                     <Typography component="span" variant="body2" className={classes.signup}>
                         Don't have an account?
