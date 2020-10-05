@@ -5,8 +5,9 @@ import { useForm } from "react-hook-form";
 
 // material ui
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Button, Checkbox, Divider, Grid, IconButton, Paper, Typography, Container, Link, CssBaseline } from '@material-ui/core';
+import { Box, Button, Checkbox, Divider, Grid, IconButton, Paper, Typography, Container, CssBaseline } from '@material-ui/core';
 import { grey } from '@material-ui/core/colors';
+
 // framer motion
 import { motion } from "framer-motion";
 
@@ -20,12 +21,15 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import googleIcon from '../../assets/imgs/icons/Google.png'
 import img from '../../assets/imgs/logo.png';
 
+// router
+import { Link } from "react-router-dom";
+
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {'Copyright © '}
-            <Link color="inherit" href="#">
-                Avocadues.com
+            <Link style={{ textDecoration: "none" }} href="#">
+                <Typography variant="span" color="primary">Avocadues.com</Typography>
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -131,12 +135,14 @@ export default function SignIn() {
                     <IconButton ><FacebookIcon /></IconButton>
                     <IconButton ><LinkedInIcon /></IconButton>
                     <IconButton ><GitHubIcon  style={{fontSize: "18px"}}/></IconButton>
-                    <IconButton ><img width="32px" alt="google" src={googleIcon}/></IconButton>
+                    {/* <IconButton ><img width="32px" alt="google" src={googleIcon}/></IconButton> */}
                 </Box>
                 <Box mt={2}>
                     <Typography component="span" variant="body2" className={classes.signup}>
                         Don't have an account?
-                    <Link style={{marginLeft: "6px"}}>Sign Up</Link>
+                    <Link style={{ marginLeft: "6px", textDecoration: "none" }} to="/signup">
+                        <Typography variant="span" color="primary">Sign Up</Typography>
+                    </Link>
                     </Typography>
                 </Box>
                 <Box mt={8} mb={2}>
