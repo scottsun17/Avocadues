@@ -28,8 +28,8 @@ function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {'Copyright © '}
-            <Link style={{ textDecoration: "none" }} href="#">
-                <Typography variant="span" color="primary">Avocadues.com</Typography>
+            <Link style={{ textDecoration: "none" }} to="/signin">
+                <Typography component="span" variant="body2" color="primary">Avocadues.com</Typography>
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -141,7 +141,7 @@ export default function SignIn() {
                     <Typography component="span" variant="body2" className={classes.signup}>
                         Don't have an account?
                         <Link style={{ marginLeft: "6px", textDecoration: "none" }} to="/signup">
-                            <Typography variant="span" color="primary">Sign Up</Typography>
+                            <Typography variant="body2" component="span" color="primary">Sign Up</Typography>
                         </Link>
                     </Typography>
                 </Box>

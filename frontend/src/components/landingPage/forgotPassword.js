@@ -106,7 +106,7 @@ const ForgotPassword = () => {
                             <Button variant="contained" fullWidth type="submit" disableElevation className={`btn-grad ${classes.submit}`}>Send</Button>
                         </Grid>
                         <Grid item xs={12}>
-                            <ButtonBase fullWidth disableElevation className={classes.submit} onClick={goBack}>Back</ButtonBase>
+                            <ButtonBase className={classes.submit} onClick={goBack}>Back</ButtonBase>
                         </Grid>
                     </Grid>
                 </form>
