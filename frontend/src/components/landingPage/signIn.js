@@ -102,7 +102,7 @@ export default function SignIn() {
                     <img width="80px" src={img} alt="logo"/>
                 </motion.div>    
                 <Typography component="h1" variant="h5" className={classes.title}>
-                    Sign in
+                    Sign In
                 </Typography>
                 <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
                     <Grid container alignItems="center">
@@ -119,7 +119,7 @@ export default function SignIn() {
                                 <Checkbox size="small"></Checkbox><Typography variant="body2" component="span" >Remeber me</Typography>
                             </Grid>
                             <Grid item xs align="right">
-                                <Link><Typography variant="body2" component="span" >Forgot Password?</Typography></Link>
+                                <Link to="/forgotpwd" style={{ textDecoration: "none" }}><Typography variant="body2" component="span" color="primary">Forgot Password?</Typography></Link>
                             </Grid>
                         </Grid>
                         <Grid item xs={12}>
@@ -140,9 +140,9 @@ export default function SignIn() {
                 <Box mt={2}>
                     <Typography component="span" variant="body2" className={classes.signup}>
                         Don't have an account?
-                    <Link style={{ marginLeft: "6px", textDecoration: "none" }} to="/signup">
-                        <Typography variant="span" color="primary">Sign Up</Typography>
-                    </Link>
+                        <Link style={{ marginLeft: "6px", textDecoration: "none" }} to="/signup">
+                            <Typography variant="span" color="primary">Sign Up</Typography>
+                        </Link>
                     </Typography>
                 </Box>
                 <Box mt={8} mb={2}>
