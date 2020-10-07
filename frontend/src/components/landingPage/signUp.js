@@ -20,6 +20,9 @@ import img from '../../assets/imgs/logo.png';
 
 import { Link } from "react-router-dom";
 
+//firebase
+import firebase from '../firebase';
+
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
@@ -81,7 +84,14 @@ const SignUp = () => {
             password_again: ""
         }
     });
-    const onSubmit = data => console.log(data);
+    const onSubmit =  data => {
+        console.log(data);
+        try {
+            firebase.register(data.username, data.email, data.password)
+        } catch(err) {
+            console.log(err.message);
+        }
+    } 
 
     return (
         <Container component="main" maxWidth="xs">
@@ -144,5 +154,6 @@ const SignUp = () => {
         </Container>
     );
 };
+
 
 export default SignUp;

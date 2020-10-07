@@ -24,6 +24,9 @@ import img from '../../assets/imgs/logo.png';
 // router
 import { Link } from "react-router-dom";
 
+//firebase
+import firebase from '../firebase';
+
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
@@ -74,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function SignIn() {
+export default function SignIn(props) {
     const classes = useStyles();
     const { register, handleSubmit, watch, errors } = useForm({
         defaultValues: {
@@ -82,7 +85,20 @@ export default function SignIn() {
             password: ""
         }
     });
-    const onSubmit = data => console.log(data);
+
+    const onSubmit = data => {
+        console.log(data);
+        try{
+            firebase.login( data.email, data.password)
+        }catch(error){
+            alert(error.message)
+        }
+    }
+    
+    // //new add
+    // const { classes } =props
+    // const[email, setEmail] = setState('')
+    // const[password, setPassword] = useState('')
 
     return (
         <Container component="main" maxWidth="xs">
@@ -112,7 +128,7 @@ export default function SignIn() {
                         </Grid>
                         <Grid item xs={12}>
                             <input name="password" type="password" ref={register({ required: true })} className={classes.inputCard} placeholder="Password *" />
-                            {errors.password && <Typography variant="caption" component="p" color="error" style={{marginBottom: "4px"}}>This field is required</Typography>}
+                            {errors.password && <Typography variant="caption" component="p" color="error" style={{marginBottom: "4px"}}>This field is required</Typography> }
                         </Grid>
                         <Grid item xs={12} container alignItems="baseline">
                             <Grid item xs align="left">
@@ -151,4 +167,5 @@ export default function SignIn() {
             </Paper>
         </Container>
     );
+
 }
