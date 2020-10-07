@@ -99,7 +99,7 @@ const ForgotPassword = () => {
                 <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
                     <Grid container alignItems="center">
                         <Grid item xs={12}>
-                            <input name="username" ref={register({ required: true })} className={classes.inputCard} placeholder="Username *" />
+                            <input name="username" ref={register({ required: true })} className={classes.inputCard} placeholder="Email *" />
                             {errors.username && <Typography variant="caption" component="p" color="error" style={{ marginBottom: "4px" }}>This field is required</Typography>}
                         </Grid>
                         <Grid item xs={12}>
