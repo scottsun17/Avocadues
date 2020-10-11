@@ -1,0 +1,37 @@
+server: 
+    port: 8080
+    servlet:
+        context-path: /
+
+
+
+# link to db driver
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://avocadues.cnsvk36zdydy.us-east-2.rds.amazonaws.com:3306/air?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+    username: admin
+    password: Pk-87654321
+    type: com.alibaba.druid.pool.DruidDataSource
+
+# mybatis config
+mybatis: 
+    mapper-locations: classpath:mapper/*.xml
+    type-aliases-package: com.avocadues.todolist.entity
+    configuration:
+        map-underscore-to-camel-case: true
+
+# check for sql 
+logging:
+  level: 
+    com.avocadues.todolist.mapper: DEBUG 
+    
+
+picPath: D:\xxx\xx\
+
+aws:
+    xxxx: aaaa
+    yyyy: yyyyyyyyyyyyy
+    zzzz: zzzzzzzzzzzzz
+    aaaa: aaaaaaaaaaaaa
+    bbbb: bbbbbbbbbbbbb

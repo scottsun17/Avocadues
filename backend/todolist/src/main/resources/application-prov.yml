@@ -1,0 +1,4 @@
+sever: 
+    port: 8080
+    servlet:
+        context-path: /boot
