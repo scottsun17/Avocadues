@@ -106,7 +106,6 @@ export default function SignIn(props) {
                 }
             }).catch(err => {
                 alert.error(err.message)
-                // alert(err.message)
             })
         }catch(error){
             alert(error.message)

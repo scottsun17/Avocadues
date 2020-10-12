@@ -9,6 +9,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Box, Button, Checkbox, Grid, Paper, Typography, Container, CssBaseline } from '@material-ui/core';
 import { grey } from '@material-ui/core/colors';
 
+// react-alert
+import { useAlert } from "react-alert";
+
 // framer motion
 import { motion } from "framer-motion";
 
@@ -18,7 +21,7 @@ import '../../css/App.css'
 // icons
 import img from '../../assets/imgs/logo.png';
 
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 //firebase
 import firebase from '../firebase';
@@ -76,6 +79,8 @@ const useStyles = makeStyles((theme) => ({
 
 const SignUp = () => {
     const classes = useStyles();
+    const hist = useHistory();
+    const alert = useAlert();
     const { register, handleSubmit, watch, errors } = useForm({
         defaultValues: {
             email: "",
@@ -88,6 +93,18 @@ const SignUp = () => {
         console.log(data);
         try {
             firebase.register(data.username, data.email, data.password)
+            .then(res => {
+                // console.log(res.user.uid)
+                // if(res.user.uid !== undefined) {
+                    alert.success("Sign up successfully!")
+                    hist.push({
+                        pathname: '/signin',
+                        // query: { user: res },
+                    })
+                // }
+            }).catch(err => {
+                alert.error(err.message)
+            })
         } catch(err) {
             console.log(err.message);
         }
