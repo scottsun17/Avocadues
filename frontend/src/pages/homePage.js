@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = () => {
   const classes = useStyles();
+
   return (
     <Container component="main" maxWidth="lg">
       <CssBaseline />
@@ -45,9 +46,12 @@ const Home = () => {
   );
 };
 
-const homePage = () => {
+const homePage = (props) => {
+  const {email, displayName, uid } = props.location.query.user.user;
+
   return (
     <div className="App">
+      <pre>{JSON.stringify(email)}</pre>
       <Home />
     </div>
   )

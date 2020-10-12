@@ -22,7 +22,7 @@ import googleIcon from '../../assets/imgs/icons/Google.png'
 import img from '../../assets/imgs/logo.png';
 
 // router
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 //firebase
 import firebase from '../firebase';
@@ -79,6 +79,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn(props) {
     const classes = useStyles();
+    const hist = useHistory();
     const { register, handleSubmit, watch, errors } = useForm({
         defaultValues: {
             email: "",
@@ -90,16 +91,21 @@ export default function SignIn(props) {
         console.log(data);
         try{
             firebase.login( data.email, data.password)
+            .then(res => {
+                console.log(res.user.uid)
+                if(res.user.uid !== undefined) {
+                    hist.push({
+                        pathname: '/home',
+                        query: { user: res },
+                    })
+                }
+            })
+            // console.log(userInfo);
         }catch(error){
             alert(error.message)
         }
     }
     
-    // //new add
-    // const { classes } =props
-    // const[email, setEmail] = setState('')
-    // const[password, setPassword] = useState('')
-
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
