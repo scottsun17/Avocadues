@@ -5,8 +5,11 @@ import { useForm } from "react-hook-form";
 
 // material ui
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Button, Checkbox, Divider, Grid, IconButton, Paper, Typography, Container, CssBaseline } from '@material-ui/core';
+import { Box, Button, Checkbox, Divider, Grid, IconButton, Paper, Typography, Container, CssBaseline, Snackbar } from '@material-ui/core';
 import { grey } from '@material-ui/core/colors';
+
+// react-alert
+import { useAlert } from "react-alert";
 
 // framer motion
 import { motion } from "framer-motion";
@@ -80,6 +83,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn(props) {
     const classes = useStyles();
     const hist = useHistory();
+    const alert = useAlert();
     const { register, handleSubmit, watch, errors } = useForm({
         defaultValues: {
             email: "",
@@ -94,13 +98,16 @@ export default function SignIn(props) {
             .then(res => {
                 console.log(res.user.uid)
                 if(res.user.uid !== undefined) {
+                    alert.success("Log in successfully!")
                     hist.push({
                         pathname: '/home',
                         query: { user: res },
                     })
                 }
+            }).catch(err => {
+                alert.error(err.message)
+                // alert(err.message)
             })
-            // console.log(userInfo);
         }catch(error){
             alert(error.message)
         }
