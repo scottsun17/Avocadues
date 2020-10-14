@@ -1,65 +1,31 @@
 package com.avocadues.todolist.controller;
 
-import java.sql.PreparedStatement;
 import java.util.List;
 
-import javax.annotation.Resource;
-
-import com.avocadues.todolist.entity.Air;
 import com.avocadues.todolist.entity.User;
-import com.avocadues.todolist.mapper.AirMapper;
-import com.avocadues.todolist.properties.AwSProperties;
+import com.avocadues.todolist.mapper.UserMapper;
+// import com.avocadues.todolist.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-
-
 
 @RestController
 public class TestController {
-    
-    
-    //can use Autowired to do it, but Resource name has higher priority than autowired 
-    @Resource(name = "user1")
-    private User user;
-
-
-    @GetMapping("/test")
-    public String test(){
-        return "Hello Spring";
-    }
-
-    @GetMapping("/user")
-    public User user(){
-        return user;
-    }
-
-    @Value("${picPath}")
-    private String picPath;
-    
-    @GetMapping("/picPath")
-    public String picPath(){
-        return picPath;
-    }
 
     @Autowired
-    private AwSProperties properties;
-    
+    private UserMapper userMapper;
 
-    @GetMapping("/aws")
-    public AwSProperties aws(){
-        return properties;
+    // http://localhost:8080/addUser?uid=j2ueh
+    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+    public void addUser(User user) {
+
+        userMapper.addUser(user);
     }
 
-    @Autowired
-    private AirMapper airMapper;
-
-    @GetMapping("/air")
-    public List<Air> air() {
-        List<Air> list = airMapper.findAll();
-        return list;
+    @RequestMapping(value = "/getAllUsers", produces = { "application/json;charset=UTF-8" })
+    public List<User> getAllUsers() {
+        return userMapper.selectAllUser();
     }
 }

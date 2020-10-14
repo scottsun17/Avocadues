@@ -471,7 +471,55 @@ public class DistrictMapperTest extends TodolistApplicationTests{
 
 
 
+## VI. SpringBoot and JSP
 
+1. import dependencies
+
+```xml
+		<!-- JSP -->
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+		</dependency>
+
+		<!-- JSTL -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+```
+
+
+
+2. create webapp and WEB-INF to store JSP pages
+
+![image-20201011151743379](img\web-inf.png)
+
+
+
+2. create controller and assign prefix and suffix for VIEW layer 
+
+```java
+@Controller
+public class JspController {
+    @GetMapping("/index")
+    public String index(Model model){
+        model.addAttribute("name", "scott");
+        return "index";
+    }
+}
+```
+
+---
+
+```yml
+spring:
+  mvc:
+    # prefix and sufix for view layer
+    view:
+      prefix: /WEB-INF/
+      suffix: .jsp
+```
 
 
 

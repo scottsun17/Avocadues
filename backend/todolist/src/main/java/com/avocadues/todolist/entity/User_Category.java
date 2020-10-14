@@ -4,12 +4,16 @@ import java.io.Serializable;
 
 import lombok.Data;
 
+
 @Data
-public class User implements Serializable {
+public class User_Category implements Serializable {
 
 	private String uid;
+	private String categoryId;
 
-	
+	public String getCategoryId(){
+		return this.categoryId;
+	}
 
 	public String getUid(){
 		return this.uid;
@@ -19,4 +23,8 @@ public class User implements Serializable {
 		this.uid = uid;
 	}
 
+	public void setCategoryId(String categoryId){
+		this.categoryId = categoryId;
+	}
 }
+
