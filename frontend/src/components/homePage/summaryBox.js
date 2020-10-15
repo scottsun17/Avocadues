@@ -5,7 +5,7 @@ import { Grid } from '@material-ui/core';
 
 const useStyles = makeStyles({
     SummaryBox: {
-        backgroundColor: '#81c784'
+        // backgroundColor: '#81c784'
       
     }
 })

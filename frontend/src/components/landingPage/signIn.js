@@ -96,7 +96,7 @@ export default function SignIn(props) {
         try{
             firebase.login( data.email, data.password)
             .then(res => {
-                console.log(res.user.uid)
+                console.log(res.user)
                 if(res.user.uid !== undefined) {
                     alert.success("Log in successfully!")
                     hist.push({
