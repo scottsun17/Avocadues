@@ -13,11 +13,13 @@ spring:
     username: admin
     password: Pk-87654321
     type: com.alibaba.druid.pool.DruidDataSource
-  mvc:
-    # prefix and sufix for view layer
-    view:
-      prefix: /WEB-INF/
-      suffix: .jsp
+  # mvc:
+  #   # prefix and sufix for view layer
+  #   view:
+  #     prefix: /WEB-INF/
+  #     suffix: .jsp
+  # main:
+  #   web-application-type: none
 
 # mybatis config
 mybatis: 
@@ -30,16 +32,3 @@ mybatis:
 logging:
   level: 
     com.avocadues.todolist.mapper: DEBUG 
-    
-
-
-
-
-picPath: D:\xxx\xx\
-
-aws:
-    xxxx: aaaa
-    yyyy: yyyyyyyyyyyyy
-    zzzz: zzzzzzzzzzzzz
-    aaaa: aaaaaaaaaaaaa
-    bbbb: bbbbbbbbbbbbb
