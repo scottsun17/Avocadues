@@ -8,6 +8,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Box, Button, Checkbox, Grid, Paper, Typography, Container, CssBaseline, ButtonBase } from '@material-ui/core';
 import { grey } from '@material-ui/core/colors';
 
+// react-alert
+import { useAlert } from "react-alert";
+
 // framer motion
 import { motion } from "framer-motion";
 
@@ -19,6 +22,9 @@ import img from '../../assets/imgs/logo.png';
 
 // router
 import { Link, useHistory } from "react-router-dom";
+
+//firebase
+import firebase from '../firebase';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -61,16 +67,35 @@ const useStyles = makeStyles((theme) => ({
 
 const ForgotPassword = () => {
     const classes = useStyles();
-    let history = useHistory();
+    const hist = useHistory();
+    const alert = useAlert();
     const { register, handleSubmit, watch, errors } = useForm({
         defaultValues: {
             email: "",
         }
     });
-    const onSubmit = data => console.log(data);
 
+    const onSubmit = data => {
+        console.log(data);
+        try{
+            firebase.resetpassword(data.email)
+            .then(res => {
+                alert.success("Sent reset password successfully!")
+                // hist.push({
+                //     pathname: '/signin',
+                //     query: { user: res },
+                // })
+            
+        }).catch(err => {
+            alert.error(err.message)
+        })
+     }catch(err) {
+            console.log(err.message);
+        }
+    }
+ 
     const goBack = () => {
-        history.push("/signin");
+        hist.push("/signin");
     }
 
     return (
@@ -99,7 +124,7 @@ const ForgotPassword = () => {
                 <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
                     <Grid container alignItems="center">
                         <Grid item xs={12}>
-                            <input name="username" ref={register({ required: true })} className={classes.inputCard} placeholder="Email *" />
+                            <input name="" ref={register({ required: true })} className={classes.inputCard} placeholder="Email *" />
                             {errors.username && <Typography variant="caption" component="p" color="error" style={{ marginBottom: "4px" }}>This field is required</Typography>}
                         </Grid>
                         <Grid item xs={12}>
