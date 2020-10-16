@@ -2,26 +2,27 @@ import React from 'react';
 import '../css/App.css';
 import SummaryBox from '../components/homePage/summaryBox';
 import TaskList from '../components/homePage/taskList'
+import HeaderInfo from "../components/homePage/headerInfo";
 
 // material ui
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Button, Paper, Typography, Container, CssBaseline, Grid } from '@material-ui/core';
 
 
+
 const useStyles = makeStyles((theme) => ({
+  root: {
+    margin: theme.spacing(0, 10),
+    borderRadius: theme.spacing(2),
+  },
   paper: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      borderRadius: theme.spacing(2),
-      padding: theme.spacing(4),
-      height: "80vh",
+    padding: theme.spacing(2, 6),
   },
   title: {
-      marginTop: theme.spacing(2)
+    marginTop: theme.spacing(2),
   },
   backBtn: {
-      marginTop: theme.spacing(4)
+    marginTop: theme.spacing(4),
   }
 }));
 
@@ -31,27 +32,28 @@ const Home = () => {
   return (
     <Container component="main" maxWidth="lg">
       <CssBaseline />
-      <Paper className={classes.paper}>
-        <Grid container>
-          <Grid item xs={3}>
-            <SummaryBox/>
+      <Paper className={classes.root}>
+        <HeaderInfo />
+        <Grid container className={classes.paper}>
+          <Grid item xs={4}>
+            <SummaryBox />
           </Grid>
-          <Grid item xs={9}>
-            <TaskList/>
+          <Grid item xs={8}>
+            <TaskList />
           </Grid>
         </Grid>
       </Paper>
-     </Container>
-  
+    </Container>
+
   );
 };
 
 const homePage = (props) => {
-  const {email, displayName, uid } = props.location.query.user.user;
+  // const {email, displayName, uid } = props.location.query.user.user;
 
   return (
     <div className="App">
-      <pre>{JSON.stringify(email)}</pre>
+      {/* <pre>{JSON.stringify(email)}</pre> */}
       <Home />
     </div>
   )

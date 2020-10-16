@@ -31,5 +31,9 @@ class Firebase {
       displayName: name,
     });
   }
+  async resetpassword(email){
+    return await this.auth.sendPasswordResetEmail(email);
+  }
+ 
 }
 export default new Firebase();
