@@ -175,6 +175,8 @@ public void addCategory(Category category)
 
 Add a new Category
 
+System will automatically generate a UUID for the category. Only need to pass in category name, color, and uid
+
 <b>Parameters:</b>
 
 ​	category - Category entity
@@ -183,7 +185,7 @@ Add a new Category
 
 ​	void
 
-<B>URL:</b> ``http://ec2-18-217-91-161.us-east-2.compute.amazonaws.com:8080/addCategory?category_id= &category_name= &color= &uid= ``
+<B>URL:</b> ``http://ec2-18-217-91-161.us-east-2.compute.amazonaws.com:8080/addCategory?category_name= &color= &uid= ``
 
 <b>Method:</b> POST
 
@@ -253,6 +255,10 @@ Get a list of tasks by category id
 
 public void addNewTask(Task task)
 
+System will automatically generate a UUID for the task. Only need to pass in description and category id
+
+New Task Status is default to false (Incomplete)
+
 Add a new task
 
 <b>Parameters:</b>
@@ -263,7 +269,7 @@ Add a new task
 
 ​	void
 
-<B>URL:</b> ``http://ec2-18-217-91-161.us-east-2.compute.amazonaws.com:8080/addNewTask?task_id= &description= &status= &category_id= ``
+<B>URL:</b> ``http://ec2-18-217-91-161.us-east-2.compute.amazonaws.com:8080/addNewTask?description= &category_id= ``
 
 <b>Method:</b> POST
 

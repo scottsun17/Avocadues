@@ -9,8 +9,10 @@ import com.avocadues.todolist.mapper.CategoryMapper;
 import com.avocadues.todolist.mapper.TaskMapper;
 import com.avocadues.todolist.mapper.UserMapper;
 // import com.avocadues.todolist.service.UserService;
+import com.avocadues.todolist.utils.IdUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.IdGenerator;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -76,10 +78,11 @@ public class TestController {
      * Add a category 
      * @param category
      * 
-     * url: http://ec2-18-217-91-161.us-east-2.compute.amazonaws.com:8080/addCategory?category_id=FISH&category_name=FISH&color=RED&uid=j2ueh
+     * url: http://ec2-18-217-91-161.us-east-2.compute.amazonaws.com:8080/addCategory?category_name=FISH&color=RED&uid=j2ueh
      */
     @RequestMapping(value = "/addCategory", method = RequestMethod.POST)
     public void addCategory(Category category) {
+        category.setCategoryId(IdUtils.getIncreaseIdByNanoTime());
         categoryMapper.addCategory(category);
     }
 
@@ -125,10 +128,12 @@ public class TestController {
      * add new task
      * @param task
      * 
-     * url: http://ec2-18-217-91-161.us-east-2.compute.amazonaws.com:8080/addNewTask?task_id=hasjkd&description=beatfishup&status=1&category_id=6
+     * url: http://ec2-18-217-91-161.us-east-2.compute.amazonaws.com:8080/addNewTask?description=beatfishup&category_id=6
      */
     @RequestMapping(value = "/addNewTask", method = RequestMethod.POST)
     public void addNewTask(Task task) {
+        task.setTaskId(IdUtils.getIncreaseIdByNanoTime());
+        task.setStatus(false);
         taskMapper.addNewTask(task);
     }
 
