@@ -35,10 +35,10 @@ const Home = () => {
       <Paper className={classes.root}>
         <HeaderInfo />
         <Grid container className={classes.paper}>
-          <Grid item xs={3}>
+          <Grid item xs={4}>
             <SummaryBox />
           </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={8}>
             <TaskList />
           </Grid>
         </Grid>

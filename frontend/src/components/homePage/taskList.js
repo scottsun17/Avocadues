@@ -1,9 +1,10 @@
 import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { ButtonBase, Grid, IconButton, Tab, Tabs, Typography } from '@material-ui/core';
+import { ButtonBase, Grid, List, ListItem, Tab, Tabs, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { green } from '@material-ui/core/colors';
 import '../../css/App.css'
+import TaskItem from './teskItem';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -12,23 +13,27 @@ const useStyles = makeStyles((theme) => ({
         height: '80vh',
         backgroundColor: '#F7F8FF',
         opacity: '0.8',
-        borderRadius: theme.spacing(2),
+        borderRadius: theme.spacing(4),
         padding: theme.spacing(4, 3, 1, 3),
     },
     createBtn: {
-        width: 48,
-        height: 48,
+        width: 52,
+        height: 52,
         backgroundColor: "#aed581",
         borderRadius: '50%',
-        color: "white"
+        color: "white",
+        marginRight: theme.spacing(4),
+    },
+    panel: {
+        padding: theme.spacing(4)
     }
 }))
 
 const MyTabs = withStyles((theme) => ({
     root: {
         borderBottom: "1px solid #f1f2f6",
-        borderRadius: theme.spacing(1),
         maxWidth: 418,
+        paddingLeft: theme.spacing(2),
     },
     indicator: {
         backgroundColor: green[200]
@@ -38,13 +43,13 @@ const MyTabs = withStyles((theme) => ({
 const MyTab = withStyles((theme) => ({
     root: {
         textTransform: "none",
-        minWidth: 130,
+        minWidth: 90,
         fontWeight: theme.typography.fontWeightRegular,
         transition: "easeInOut 0.4s",
-        fontSize: 16,
+        fontSize: 18,
         padding: 0,
         "&:hover": {
-            fontSize: "1.5rem",
+            fontSize: "2.2rem",
             color: "#A8D9C9",
             opacity: 1,
             marginBottom: theme.spacing(1),
@@ -60,15 +65,16 @@ const MyTab = withStyles((theme) => ({
         }
     },
     selected: {
-        fontSize: "1.5rem"
+        fontSize: "2.2rem"
     }
 }))((props) => <Tab disableRipple {...props} />);
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
+    const classes = useStyles();
 
     return (
-        <div hidden={value !== index} {...other}>
+        <div hidden={value !== index} {...other} className={classes.panel}>
             {value === index && (
                 <Typography>{children}</Typography>
             )}
@@ -99,12 +105,20 @@ export default function TaskList(){
                     <Grid item>
                         {/* <Typography variant="caption" component="span" className={classes.createTitle}>Create New Todo</Typography> */}
                         <ButtonBase variant="contained" color="primary" className={classes.createBtn}>
-                            <AddIcon/>
+                            <AddIcon fontSize="large"/>
                         </ButtonBase>
                     </Grid>
                 </Grid>
                 <TabPanel value={value} index={0}>
-                    Item One
+                    <List>
+                        {
+                            [0, 1, 2, 3].map((value) => 
+                                <ListItem key={value}>
+                                    <TaskItem />
+                                </ListItem>
+                            )
+                        }
+                    </List>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                     Item Two
