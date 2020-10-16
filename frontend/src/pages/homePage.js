@@ -6,17 +6,18 @@ import HeaderInfo from "../components/homePage/headerInfo";
 
 // material ui
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Button, Paper, Typography, Container, CssBaseline, Grid } from '@material-ui/core';
+import { Paper, Container, CssBaseline, Grid } from '@material-ui/core';
 
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: theme.spacing(0, 10),
+    // maxWidth: 820,
     borderRadius: theme.spacing(2),
+    // margin: theme.spacing(0, 14),
   },
   paper: {
-    padding: theme.spacing(2, 6),
+    padding: theme.spacing(2, 8),
   },
   title: {
     marginTop: theme.spacing(2),
@@ -30,11 +31,11 @@ const Home = () => {
   const classes = useStyles();
 
   return (
-    <Container component="main" maxWidth="lg">
+    <Container component="main" maxWidth="md">
       <CssBaseline />
       <Paper className={classes.root}>
         <HeaderInfo />
-        <Grid container className={classes.paper}>
+        <Grid container className={classes.paper} justify='center'>
           <Grid item xs={4}>
             <SummaryBox />
           </Grid>

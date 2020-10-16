@@ -2,9 +2,12 @@ import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { ButtonBase, Grid, List, ListItem, Tab, Tabs, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import { green } from '@material-ui/core/colors';
-import '../../css/App.css'
+
+// framer motion
+import { motion } from "framer-motion";
+
 import TaskItem from './teskItem';
+import '../../css/App.css'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -20,10 +23,10 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: "#aed581",
         borderRadius: '50%',
         color: "white",
-        marginRight: theme.spacing(4),
+        // marginRight: theme.spacing(4),
     },
     panel: {
-        padding: theme.spacing(4)
+        padding: theme.spacing(4),
     }
 }))
 
@@ -34,7 +37,7 @@ const MyTabs = withStyles((theme) => ({
         paddingLeft: theme.spacing(2),
     },
     indicator: {
-        backgroundColor: green[200]
+        backgroundColor: "#aed581"
     }
 }))(Tabs);
 
@@ -48,18 +51,18 @@ const MyTab = withStyles((theme) => ({
         padding: 0,
         "&:hover": {
             fontSize: "2.2rem",
-            color: "#A8D9C9",
+            color: "#A4C1A1",
             opacity: 1,
             marginBottom: theme.spacing(1),
             fontWeight: theme.typography.fontWeightMedium
         },
         "&$selected": {
-            color: "#A8D9C9",
+            color: "#A4C1A1",
             marginBottom: theme.spacing(1),
             fontWeight: theme.typography.fontWeightMedium
         },
         "&:focus": {
-            color: "#A8D9C9"
+            color: "#A4C1A1"
         }
     },
     selected: {
@@ -101,17 +104,27 @@ export default function TaskList(){
                         </MyTabs>
                     </Grid>
                     <Grid item>
-                        {/* <Typography variant="caption" component="span" className={classes.createTitle}>Create New Todo</Typography> */}
-                        <ButtonBase variant="contained" color="primary" className={classes.createBtn}>
-                            <AddIcon fontSize="large"/>
-                        </ButtonBase>
+                        <motion.div
+                            whileHover={{         
+                                rotate: [0, 0, 360, 360, 0],
+                            }}
+                            transition={{
+                                duration: 1,
+                                ease: "easeInOut",
+                                times: [0, 0.2, 0.5, 0.8, 1],
+                            }}
+                        >
+                            <ButtonBase variant="contained" color="primary" className={classes.createBtn}>
+                                <AddIcon fontSize="large"/>
+                            </ButtonBase>
+                        </motion.div>
                     </Grid>
                 </Grid>
                 <TabPanel value={value} index={0}>
                     <List>
                         {
-                            [0, 1, 2, 3].map((value) => 
-                                <ListItem key={value}>
+                            [0, 1, 2, 3].map(v => 
+                                <ListItem key={v}>
                                     <TaskItem />
                                 </ListItem>
                             )
