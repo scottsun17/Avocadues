@@ -12,9 +12,7 @@ import { Paper, Container, CssBaseline, Grid } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // maxWidth: 820,
     borderRadius: theme.spacing(2),
-    // margin: theme.spacing(0, 14),
   },
   paper: {
     padding: theme.spacing(2, 8),
