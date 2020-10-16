@@ -17,6 +17,38 @@ Dependencies:
 
 
 
+# Entity Summary
+
+### User
+
+| Data Type | Property name | Setter and Getter |
+| --------- | ------------- | ----------------- |
+| String    | uid           | yes               |
+
+
+
+### Category
+
+| Data Type | Property name | Setter and Getter |
+| --------- | ------------- | ----------------- |
+| String    | category_id   | yes               |
+| String    | category_name | yes               |
+| String    | color         | yes               |
+| String    | uid           | yes               |
+
+
+
+### Task
+
+| Data Type | Property name | Setter and Getter |
+| --------- | ------------- | ----------------- |
+| String    | task_id       | yes               |
+| String    | description   | yes               |
+| boolean   | status        | yes               |
+| String    | category_id   | yes               |
+
+
+
 # Method Summary
 
 ### User
@@ -59,7 +91,7 @@ Dependencies:
 
 ## User
 
-#### addUser<a id="addUser"> </a>
+#### addUser()<a id="addUser"> </a>
 
 public void addUser(User user)
 
@@ -79,7 +111,7 @@ Add a new user to the user database
 
 ---
 
-#### getAllUser <a id="getAllUser "> </a>
+#### getAllUser()<a id="getAllUser "> </a>
 
 public List<User> gettAllUser()
 
@@ -161,7 +193,7 @@ Add a new Category
 
 public void deleteCategoryByCategoryId(Category category)
 
-Delete a category by category id
+Delete a category by category id. This method will delete all tasks within the category
 
 <b>Parameters:</b>
 
@@ -197,7 +229,7 @@ Get a list of all tasks
 
 ---
 
-#### getTasksByCategoryId()<a id="getTasksByCategoryId"> </a>
+#### getTasksByCategoryId(Category category)<a id="getTasksByCategoryId"> </a>
 
 public List<Task> getTasksByCategoryId(Category category)
 
@@ -217,7 +249,7 @@ Get a list of tasks by category id
 
 ---
 
-#### addNewTask()<a id="getTasksByCategoryId"> </a>
+#### addNewTask(Task task)<a id="addNewTask"> </a>
 
 public void addNewTask(Task task)
 
@@ -229,11 +261,99 @@ Add a new task
 
 <b>Return:</b>
 
+​	void
+
 <B>URL:</b> ``http://ec2-18-217-91-161.us-east-2.compute.amazonaws.com:8080/addNewTask?task_id= &description= &status= &category_id= ``
 
 <b>Method:</b> POST
 
 ---
+
+#### updateTaskStatus(Task task)<a id="updateTaskStatus"> </a>
+
+public void updateTaskStatus(Task task)
+
+Update task status
+
+<b>Parameters:</b>
+
+​	task- Task entity
+
+<b>Return:</b>
+
+​	void
+
+<B>URL:</b> ``http://ec2-18-217-91-161.us-east-2.compute.amazonaws.com:8080/updateTaskStatus?task_id= &status=  ``
+
+<b>Method:</b> POST
+
+---
+
+#### deleteTaskByTaskId(Task task)<a id="deleteTaskByTaskId"> </a>
+
+public void deleteTaskByTaskId(Task task)
+
+Delete task by task id
+
+<b>Parameters:</b>
+
+​	task- Task entity
+
+<b>Return:</b>
+
+​	void
+
+<B>URL:</b> ``http://ec2-18-217-91-161.us-east-2.compute.amazonaws.com:8080/deleteTaskByTaskId?task_id=``
+
+<b>Method:</b> POST
+
+---
+
+#### deleteAllCompletedTasksInCategory(Task task)<a id="deleteAllCompletedTasksInCategory"> </a>
+
+public void deleteAllCompletedTasksInCategory(Task task)
+
+Delete all completed tasks within the same category
+
+<b>Parameters:</b>
+
+​	task- Task entity
+
+<b>Return:</b>
+
+​	void
+
+<B>URL:</b> ``http://ec2-18-217-91-161.us-east-2.compute.amazonaws.com:8080/deleteAllCompletedTasksInCategory?category_id=``
+
+<b>Method:</b> POST
+
+---
+
+#### deleteAllTasksByCategoryId(Task task)<a id="deleteAllTasksByCategoryId"> </a>
+
+public void deleteAllTasksByCategoryId(Task task)
+
+Delete all tasks within the same category
+
+<b>Parameters:</b>
+
+​	task- Task entity
+
+<b>Return:</b>
+
+​	void
+
+<B>URL:</b> ``http://ec2-18-217-91-161.us-east-2.compute.amazonaws.com:8080/deleteAllTasksByCategoryId?category_id=``
+
+<b>Method:</b> POST
+
+
+
+
+
+
+
+
 
 
 
