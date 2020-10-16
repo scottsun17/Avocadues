@@ -15,7 +15,7 @@ public interface TaskMapper {
     @Select("select * from task")
     public List<Task> getAllTasks();
 
-    @Select("select * from task where task_id = #{id}")
+    @Select("select * from task where category_id = #{category_id}")
     public List<Task> getTasksByCategoryId(Category category);
 
     @Insert("insert into task(task_id, description, status, category_id) values(#{task_id}, #{description}, #{status}, #{category_id})")

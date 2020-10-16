@@ -83,6 +83,20 @@ public class TestController {
         categoryMapper.addCategory(category);
     }
 
+        /**
+     * Delete category and all tasks associated with the category
+     * @param category  category entity class 
+     * 
+     * url: http://ec2-18-217-91-161.us-east-2.compute.amazonaws.com:8080/deleteCategoryByCategoryId?category_id=1
+     */
+    @RequestMapping(value = "/deleteCategoryByCategoryId", method = RequestMethod.POST)
+    public void deleteCategoryByCategoryId(Category category) {
+        categoryMapper.deleteCategoryByCategoryId(category);
+        Task task = new Task();
+        task.setCategoryId(category.getCategoryId());
+        taskMapper.deleteAllTasksByCategoryId(task);
+    }
+
     /**
      * Get a list of all tasks
      * @return List<Task> a list of all tasks
@@ -92,6 +106,19 @@ public class TestController {
     @RequestMapping(value = "/getAllTasks", produces = { "application/json;charset=UTF-8" })
     public List<Task> getAllTasks() {
         return taskMapper.getAllTasks();
+    }
+
+    
+    /**
+     * add new task
+     * @param category
+     * @return List<Task> a list of all tasks by category id
+     * 
+     * url: http://ec2-18-217-91-161.us-east-2.compute.amazonaws.com:8080/getTasksByCategoryId?category_id=10
+     */
+    @RequestMapping(value = "/getTasksByCategoryId", method = RequestMethod.POST)
+    public List<Task> getTasksByCategoryId(Category category){
+        return taskMapper.getTasksByCategoryId(category);
     }
 
     /**
@@ -149,17 +176,5 @@ public class TestController {
         taskMapper.deleteAllTasksByCategoryId(task);
     }
 
-    /**
-     * Delete category and all tasks associated with the category
-     * @param category  category entity class 
-     * 
-     * url: http://ec2-18-217-91-161.us-east-2.compute.amazonaws.com:8080/deleteCategoryByCategoryId?category_id=1
-     */
-    @RequestMapping(value = "/deleteCategoryByCategoryId", method = RequestMethod.POST)
-    public void deleteCategoryByCategoryId(Category category) {
-        categoryMapper.deleteCategoryByCategoryId(category);
-        Task task = new Task();
-        task.setCategoryId(category.getCategoryId());
-        taskMapper.deleteAllTasksByCategoryId(task);
-    }
+
 }
