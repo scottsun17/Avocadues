@@ -1,12 +1,14 @@
 import React from 'react';
 import mojs from '@mojs/core';
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import '../../css/icon.css';
 
 export default function CheckAnim() {
     return (
         <div>
-            <i class="fas fa-check"></i>
-            {/* <button className="checkBtn"></button> */}
+            <FontAwesomeIcon icon={faCheck} />
         </div>
     );
 };

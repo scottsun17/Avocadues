@@ -9,9 +9,7 @@ import TaskItem from './teskItem';
 
 const useStyles = makeStyles((theme) => ({
     taskList: {
-        backgroundColor: '#a6d4fa',
-        height: '80vh',
-        backgroundColor: '#F7F8FF',
+        height: '60vh',
         opacity: '0.8',
         borderRadius: theme.spacing(4),
         padding: theme.spacing(4, 3, 1, 3),
@@ -76,7 +74,7 @@ function TabPanel(props) {
     return (
         <div hidden={value !== index} {...other} className={classes.panel}>
             {value === index && (
-                <Typography>{children}</Typography>
+                <div>{children}</div>
             )}
         </div>
     );
