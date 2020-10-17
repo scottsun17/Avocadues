@@ -4,6 +4,8 @@ import { Box, Grid, IconButton, Typography } from '@material-ui/core';
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { useContext } from 'react';
+import { UserContext } from "../../pages/homePage";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -25,6 +27,8 @@ const useStyles = makeStyles((theme) => ({
 
 const HeaderInfo = () => {
     const classes = useStyles();
+    const user = useContext(UserContext)
+    console.log(user)
 
     return (
         <React.Fragment>
@@ -35,9 +39,10 @@ const HeaderInfo = () => {
                             <Box fontWeight="700">
                                 Avocadues
                             </Box>
-                            </Typography>
+                        </Typography>
                     </Grid>
                     <Grid item className={classes.userInfo}>
+                        <Typography>{user.displayName}</Typography>
                         <IconButton style={{marginRight: '6px'}}>
                             <AccountCircleIcon />
                         </IconButton>

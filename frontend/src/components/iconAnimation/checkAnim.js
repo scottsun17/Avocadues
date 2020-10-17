@@ -1,9 +1,6 @@
 import React from "react";
 import mojs from "@mojs/core";
 
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import "../../css/icon.css";
 import { Checkbox } from "@material-ui/core";
 
 const burst = new mojs.Burst({

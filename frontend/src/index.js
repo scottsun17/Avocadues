@@ -26,13 +26,11 @@ const options = {
 };
 
 ReactDOM.render(
-  <React.StrictMode>
     <ThemeProvider theme={theme}>
       <Provider template={AlertTemplate} {...options}>
         <App />
       </Provider>
-    </ThemeProvider>
-  </React.StrictMode>,
+    </ThemeProvider>,
   document.getElementById("root")
 );
 

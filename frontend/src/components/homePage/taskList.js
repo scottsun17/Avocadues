@@ -1,8 +1,9 @@
 import React from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import {
   Backdrop,
+  Button,
   ButtonBase,
   Grid,
   List,
@@ -10,21 +11,25 @@ import {
   Modal,
   Tab,
   Tabs,
+  Typography,
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 
+
+// form
+import { useForm } from "react-hook-form";
 // framer motion
 import { motion } from "framer-motion";
 
-import { useSpring, animated } from "react-spring/web.cjs"; // web.cjs is required for IE 11 support
+// import { useSpring, animated } from "react-spring/web.cjs"; // web.cjs is required for IE 11 support
 
 import TaskItem from "./teskItem";
 import "../../css/App.css";
+import { grey } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
   taskList: {
     height: "60vh",
-    // opacity: "0.8",
     borderRadius: theme.spacing(4),
     padding: theme.spacing(4, 3, 1, 3),
   },
@@ -44,14 +49,36 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   paper: {
-    width: "20vw",
-    height: "15vh",
+    width: "40vw",
+    height: "20vh",
     backgroundColor: theme.palette.background.paper,
     borderRadius: theme.spacing(2),
     padding: theme.spacing(2, 4, 3),
+    outline: 0,
   },
-  fade: {
-    outline: "none",
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  inputCard: {
+    border: "0px solid",
+    borderRadius: "8px",
+    backgroundColor: grey[200],
+    alignItems: 'center',
+    width: "100%",
+    height: "3rem",
+    margin: theme.spacing(0.5, 0, 1.5, 0),
+    padding: theme.spacing(1.5),
+    outline: 'none'
+  },
+  submit: {
+    textTransform: "none",
+    width: "40%",
+    height: "2.5rem",
+    borderRadius: "8px",
+    marginTop: theme.spacing(1),
+    padding: theme.spacing(0, 6),
+    flexGrow: 1,
   },
 }));
 
@@ -106,41 +133,56 @@ function TabPanel(props) {
   );
 }
 
-const Fade = React.forwardRef(function Fade(props, ref) {
-    const { in: open, children, onEnter, onExited, ...other } = props;
-    const style = useSpring({
-      from: { opacity: 0 },
-      to: { opacity: 1 },
-      onStart: () => {
-        if (open && onEnter) {
-          onEnter();
-        }
-      },
-      onRest: () => {
-        if (!open && onExited) {
-          onExited();
-        }
-      }
-    });
-  
-    return (
-      <animated.div ref={ref} style={style} {...other}>
-        {children}
-      </animated.div>
-    );
-});
+// const Fade = React.forwardRef(function Fade(props, ref) {
+//     const { in: open, children, onEnter, onExited, ...other } = props;
+//     const style = useSpring({
+//       from: { opacity: 0 },
+//       to: { opacity: 1 },
+//       onStart: () => {
+//         if (open && onEnter) {
+//           onEnter();
+//         }
+//       },
+//       onRest: () => {
+//         if (!open && onExited) {
+//           onExited();
+//         }
+//       }
+//     });
 
-Fade.propTypes = {
-  children: PropTypes.element,
-  in: PropTypes.bool.isRequired,
-  onEnter: PropTypes.func,
-  onExited: PropTypes.func,
-};
+//     return (
+//       <animated.div ref={ref} style={style} {...other}>
+//         {children}
+//       </animated.div>
+//     );
+// });
+
+// Fade.propTypes = {
+//   children: PropTypes.element,
+//   in: PropTypes.bool.isRequired,
+//   onEnter: PropTypes.func,
+//   onExited: PropTypes.func,
+// };
 
 export default function TaskList() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [open, setOpen] = React.useState(false);
+
+  const { register, handleSubmit, watch, errors } = useForm({
+    defaultValues: {
+      taskContent: "",
+    }
+  });
+
+  const onSubmit = data => {
+    console.log(data);
+    try {
+
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -191,8 +233,6 @@ export default function TaskList() {
               </ButtonBase>
             </motion.div>
             <Modal
-              aria-labelledby="spring-modal-title"
-              aria-describedby="spring-modal-description"
               className={classes.modal}
               open={open}
               onClose={handleClose}
@@ -202,12 +242,19 @@ export default function TaskList() {
                 timeout: 500,
               }}
             >
-              <Fade in={open} className={classes.fade}>
-                <div className={classes.paper}>
-                  <h2 id="spring-modal-title">Spring modal</h2>
-                  <p id="spring-modal-description">react-spring animates me.</p>
-                </div>
-              </Fade>
+              <div className={classes.paper}>
+                <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+                  <Grid container alignItems="center">
+                    <Grid item xs={12}>
+                      <input name="content" ref={register({ required: true })} className={classes.inputCard} placeholder="Task" />
+                      {errors.username && <Typography variant="caption" component="p" color="error" style={{ marginBottom: "4px" }}>This field is required</Typography>}
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Button variant="contained" fullWidth type="submit" disableElevation className={`btn-grad ${classes.submit}`}>Send</Button>
+                    </Grid>
+                  </Grid>
+                </form>
+              </div>
             </Modal>
           </Grid>
         </Grid>

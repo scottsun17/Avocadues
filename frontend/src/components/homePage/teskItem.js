@@ -1,11 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
-  ButtonBase,
+  Box,
   Grid,
   IconButton,
-  Tab,
-  Tabs,
   Typography,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -15,13 +13,17 @@ import "../../css/App.css";
 const useStyles = makeStyles((theme) => ({
   root: {
     borderRadius: theme.spacing(2),
-    padding: theme.spacing(1),
     width: "100%",
-    height: "5vh",
   },
   checkbox: {
     marginRight: theme.spacing(2),
   },
+  content: {
+    height: 18,
+  },
+  deletebtn: {
+    marginRight: theme.spacing(2),
+  }
 }));
 
 export default function TaskItem() {
@@ -39,11 +41,13 @@ export default function TaskItem() {
             <Grid item xs={1} className={classes.checkbox}>
               <CheckAnim />
             </Grid>
-            <Grid item xs>
-              <Typography>aaa</Typography>
+            <Grid item xs={1}>
+              <Typography>
+                aaaa
+              </Typography>
             </Grid>
           </Grid>
-          <Grid item xs={1}>
+          <Grid item xs={1} className={classes.deletebtn}>
             <IconButton>
               <DeleteIcon />
             </IconButton>
