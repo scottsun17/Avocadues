@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // import PropTypes from "prop-types";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import {
@@ -14,21 +14,22 @@ import {
   Typography,
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
+import { grey } from "@material-ui/core/colors";
 
-
+// url axios
+import axios from "axios";
+import { URL } from "../../config";
 // form
 import { useForm } from "react-hook-form";
 // framer motion
 import { motion } from "framer-motion";
-
 // import { useSpring, animated } from "react-spring/web.cjs"; // web.cjs is required for IE 11 support
-
-import TaskItem from "./teskItem";
+import TaskItem from "./taskItem";
 import "../../css/App.css";
-import { grey } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
   taskList: {
+    width: 635,
     height: "60vh",
     borderRadius: theme.spacing(4),
     padding: theme.spacing(4, 3, 1, 3),
@@ -57,19 +58,19 @@ const useStyles = makeStyles((theme) => ({
     outline: 0,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
   inputCard: {
     border: "0px solid",
     borderRadius: "8px",
     backgroundColor: grey[200],
-    alignItems: 'center',
+    alignItems: "center",
     width: "100%",
     height: "3rem",
     margin: theme.spacing(0.5, 0, 1.5, 0),
     padding: theme.spacing(1.5),
-    outline: 'none'
+    outline: "none",
   },
   submit: {
     textTransform: "none",
@@ -79,6 +80,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     padding: theme.spacing(0, 6),
     flexGrow: 1,
+  },
+  list: {
+    overflow: "auto",
+    maxHeight: 600,
   },
 }));
 
@@ -164,25 +169,53 @@ function TabPanel(props) {
 //   onExited: PropTypes.func,
 // };
 
-export default function TaskList() {
+export default function TaskList(props) {
   const classes = useStyles();
+  const cid = props.cid;
   const [value, setValue] = React.useState(0);
   const [open, setOpen] = React.useState(false);
+  const [taskArr, setTaskArr] = React.useState([]);
+  const [inProcess, setInProcess] = React.useState([]);
+  const [done, setDone] = React.useState([]);
+
+  const fetchTasks = async () => {
+    const res = await axios.post(
+      URL + "getTasksByCategoryId?category_id=" + cid
+    );
+    const arr = splitTaskByStatus(res.data);
+    console.log(arr);
+    setTaskArr(res.data);
+    setInProcess(arr.inProcess);
+    setDone(arr.done);
+  };
+
+  const splitTaskByStatus = (arr) => {
+    const arr1 = [];
+    const arr2 = [];
+    arr.forEach((ele) => {
+      if (!ele.status) {
+        arr2.push(ele);
+      } else {
+        arr1.push(ele);
+      }
+    });
+    return { inProcess: arr1, done: arr2 };
+  };
 
   const { register, handleSubmit, watch, errors } = useForm({
     defaultValues: {
       taskContent: "",
-    }
+    },
   });
 
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     console.log(data);
-    try {
+    // try {
 
-    } catch (err) {
-      console.log(err.message);
-    }
-  }
+    // } catch (err) {
+    //   console.log(err.message);
+    // }
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -196,6 +229,10 @@ export default function TaskList() {
     setOpen(false);
   };
 
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
   return (
     <React.Fragment>
       <div className={`taskList-bgcolor ${classes.taskList}`}>
@@ -208,7 +245,7 @@ export default function TaskList() {
           <Grid item>
             <MyTabs value={value} onChange={handleChange}>
               <MyTab label="All"></MyTab>
-              <MyTab label="Process"></MyTab>
+              <MyTab label="In progress"></MyTab>
               <MyTab label="Done"></MyTab>
             </MyTabs>
           </Grid>
@@ -243,14 +280,39 @@ export default function TaskList() {
               }}
             >
               <div className={classes.paper}>
-                <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+                <form
+                  className={classes.form}
+                  onSubmit={handleSubmit(onSubmit)}
+                >
                   <Grid container alignItems="center">
                     <Grid item xs={12}>
-                      <input name="content" ref={register({ required: true })} className={classes.inputCard} placeholder="Task" />
-                      {errors.username && <Typography variant="caption" component="p" color="error" style={{ marginBottom: "4px" }}>This field is required</Typography>}
+                      <input
+                        name="content"
+                        ref={register({ required: true })}
+                        className={classes.inputCard}
+                        placeholder="Task"
+                      />
+                      {errors.username && (
+                        <Typography
+                          variant="caption"
+                          component="p"
+                          color="error"
+                          style={{ marginBottom: "4px" }}
+                        >
+                          This field is required
+                        </Typography>
+                      )}
                     </Grid>
                     <Grid item xs={12}>
-                      <Button variant="contained" fullWidth type="submit" disableElevation className={`btn-grad ${classes.submit}`}>Send</Button>
+                      <Button
+                        variant="contained"
+                        fullWidth
+                        type="submit"
+                        disableElevation
+                        className={`btn-grad ${classes.submit}`}
+                      >
+                        Send
+                      </Button>
                     </Grid>
                   </Grid>
                 </form>
@@ -259,19 +321,61 @@ export default function TaskList() {
           </Grid>
         </Grid>
         <TabPanel value={value} index={0}>
-          <List>
-            {[0, 1, 2, 3].map((v) => (
-              <ListItem key={v}>
-                <TaskItem />
-              </ListItem>
-            ))}
+          <List className={classes.list}>
+            {taskArr ? (
+              taskArr.length != 0 ? (
+                done.map((item) => {
+                  return (
+                    <ListItem key={item.taskId}>
+                      <TaskItem content={item.description} />
+                    </ListItem>
+                  );
+                })
+              ) : (
+                <div>Create new todos</div>
+              )
+            ) : (
+              <div>Loading...</div>
+            )}
           </List>
         </TabPanel>
         <TabPanel value={value} index={1}>
-          Item Two
+          <List className={classes.list}>
+            {inProcess ? (
+              inProcess.length != 0 ? (
+                done.map((item) => {
+                  return (
+                    <ListItem key={item.taskId}>
+                      <TaskItem content={item.description} />
+                    </ListItem>
+                  );
+                })
+              ) : (
+                <div>Create new todos</div>
+              )
+            ) : (
+              <div>Loading...</div>
+            )}
+          </List>
         </TabPanel>
         <TabPanel value={value} index={2}>
-          Item Three
+          <List className={classes.list}>
+            {done ? (
+              done.length != 0 ? (
+                done.map((item) => {
+                  return (
+                    <ListItem key={item.taskId}>
+                      <TaskItem content={item.description} />
+                    </ListItem>
+                  );
+                })
+              ) : (
+                <div>All Done, Great!</div>
+              )
+            ) : (
+              <div>Loading...</div>
+            )}
+          </List>
         </TabPanel>
       </div>
     </React.Fragment>

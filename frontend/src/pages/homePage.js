@@ -1,19 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../css/App.css";
-import SummaryBox from "../components/homePage/summaryBox";
-import TaskList from "../components/homePage/taskList";
 import HeaderInfo from "../components/homePage/headerInfo";
 
 // material ui
 import { makeStyles } from "@material-ui/core/styles";
-import { Paper, Container, CssBaseline, Grid } from "@material-ui/core";
+import { Paper, Container, CssBaseline } from "@material-ui/core";
+
+// url axios
+import axios from "axios";
+import { URL } from "../config";
+import CategoryList from "../components/homePage/categoryList";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     borderRadius: theme.spacing(2),
-  },
-  paper: {
-    padding: theme.spacing(2, 8),
   },
   title: {
     marginTop: theme.spacing(2),
@@ -27,7 +27,20 @@ export const UserContext = React.createContext();
 
 const Home = (props) => {
   const classes = useStyles();
+  const [categories, setCategories] = React.useState([]);
   const user = props.user;
+
+  const fetchCategories = async () => {
+    const res = await axios.post(URL + "getCategoryByUid?uid=" + user.uid);
+    console.log(res);
+    setCategories(res);
+  };
+
+  useEffect(() => {
+    fetchCategories();
+    console.log(categories);
+  }, []);
+
   console.log(props);
 
   return (
@@ -38,14 +51,7 @@ const Home = (props) => {
             <CssBaseline />
             <Paper className={classes.root}>
               <HeaderInfo />
-              <Grid container className={classes.paper} justify="center">
-                <Grid item xs={4}>
-                  <SummaryBox />
-                </Grid>
-                <Grid item xs={8}>
-                  <TaskList />
-                </Grid>
-              </Grid>
+              <CategoryList list={categories.data}/>
             </Paper>
           </Container>
         </UserContext.Provider>
@@ -61,7 +67,6 @@ const homePage = (props) => {
 
   return (
     <div className="App">
-      {/* <pre>{JSON.stringify(email)}</pre> */}
       <Home user={user} />
     </div>
   );

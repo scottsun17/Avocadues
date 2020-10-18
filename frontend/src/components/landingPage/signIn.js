@@ -107,7 +107,7 @@ export default function SignIn(props) {
                 console.log(res.user)
                 if(res.user.uid !== undefined) {
                     alert.success("Log in successfully!")
-                    postUid(res.user.uid);
+                    // postUid(res.user.uid);
                     hist.push({
                         pathname: '/home',
                         query: { user: res },

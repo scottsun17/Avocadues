@@ -18,16 +18,13 @@ const burst = new mojs.Burst({
 });
 
 export default function CheckAnim() {
-    const play = e => {
-        burst
-        .tune({ x: e.pageX, y: e.pageY })
-        .setSpeed(5)
-        .replay();
-    }
+  const play = (e) => {
+    burst.tune({ x: e.pageX, y: e.pageY }).setSpeed(5).replay();
+  };
 
   return (
     <div>
-        <Checkbox onClick={play} color="primary"/>
+      <Checkbox onClick={play} color="primary" />
     </div>
   );
 }

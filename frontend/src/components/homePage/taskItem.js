@@ -1,7 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
-  Box,
   Grid,
   IconButton,
   Typography,
@@ -26,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function TaskItem() {
+export default function TaskItem(props) {
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -41,9 +40,9 @@ export default function TaskItem() {
             <Grid item xs={1} className={classes.checkbox}>
               <CheckAnim />
             </Grid>
-            <Grid item xs={1}>
+            <Grid item xs>
               <Typography>
-                aaaa
+                {props.content}
               </Typography>
             </Grid>
           </Grid>
