@@ -1,6 +1,8 @@
 import app from "firebase/app";
 import "firebase/auth";
 import "firebase/firebase-firestore";
+import firebase from "firebase";
+
 
 const config = {
   apiKey: "AIzaSyCMWj_MN8HshQ6FrPCDgH8dasXsQt2M1B0",
@@ -11,9 +13,26 @@ const config = {
   messagingSenderId: "477564425623",
   appId: "1:477564425623:web:afbd6e1c857ea87ccd60d2",
   measurementId: "G-EFBBR1PX8N",
+  //Authentication third party//
+  // signInFlow:"popup",
+  //     signInOptions:[
+  //         firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+  //         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+  //         firebase.auth.GithubAuthProvider.PROVIDER_ID,
+  //         firebase.auth.EmailAuthProvider.PROVIDER_ID,
+  //     ],
+  //     callsbacks:{
+  //         signInSuccess: () => false
+  //     }
 };
 
-class Firebase {
+
+// firebase.initializeApp({
+//   apiKey: "AIzaSyCMWj_MN8HshQ6FrPCDgH8dasXsQt2M1B0",
+//   authDomain: "https://avocadues-project.firebaseapp.com/"
+// })
+
+class FirebaseAuth {
   constructor() {
     app.initializeApp(config);
     this.auth = app.auth();
@@ -34,6 +53,6 @@ class Firebase {
   async resetpassword(email){
     return await this.auth.sendPasswordResetEmail(email);
   }
- 
+
 }
-export default new Firebase();
+export default new FirebaseAuth();
