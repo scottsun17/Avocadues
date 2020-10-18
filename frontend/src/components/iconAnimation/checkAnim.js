@@ -1,9 +1,6 @@
 import React from "react";
 import mojs from "@mojs/core";
 
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import "../../css/icon.css";
 import { Checkbox } from "@material-ui/core";
 
 const burst = new mojs.Burst({
@@ -21,16 +18,13 @@ const burst = new mojs.Burst({
 });
 
 export default function CheckAnim() {
-    const play = e => {
-        burst
-        .tune({ x: e.pageX, y: e.pageY })
-        .setSpeed(5)
-        .replay();
-    }
+  const play = (e) => {
+    burst.tune({ x: e.pageX, y: e.pageY }).setSpeed(5).replay();
+  };
 
   return (
     <div>
-        <Checkbox onClick={play} color="primary"/>
+      <Checkbox onClick={play} color="primary" />
     </div>
   );
 }

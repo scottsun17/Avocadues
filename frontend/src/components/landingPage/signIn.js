@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 // form
 import { useForm } from "react-hook-form";
@@ -33,6 +33,10 @@ import firebaseAuth from '../firebase';
 
 
 
+
+// axios
+import axios from "axios";
+import { URL } from '../../config';
 
 function Copyright() {
     return (
@@ -98,6 +102,10 @@ export default function SignIn(props) {
         }
     });
 
+    const postUid = (uid) => {
+        axios.post(URL + 'addUser?uid=' + uid);
+    }
+
     const onSubmit = data => {
         console.log(data);
         try{
@@ -106,6 +114,7 @@ export default function SignIn(props) {
                 console.log(res.user)
                 if(res.user.uid !== undefined) {
                     alert.success("Log in successfully!")
+                    // postUid(res.user.uid);
                     hist.push({
                         pathname: '/home',
                         query: { user: res },
@@ -118,6 +127,8 @@ export default function SignIn(props) {
             alert(error.message)
         }
     }
+
+    // useEffect(() => postUid(), [])
     
     const loginWithGithub = () => {
         const provider = new firebase.auth.GithubAuthProvider();
