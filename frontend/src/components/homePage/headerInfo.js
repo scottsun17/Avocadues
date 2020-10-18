@@ -8,6 +8,14 @@ import { useContext } from 'react';
 import { UserContext } from "../../pages/homePage";
 
 
+// react-alert
+import { useAlert } from "react-alert";
+
+//firebaseAuth
+import firebaseAuth from '../firebase';
+import { useHistory } from 'react-router-dom';
+
+
 const useStyles = makeStyles((theme) => ({
     root: {
         height: theme.spacing(10),
@@ -25,10 +33,36 @@ const useStyles = makeStyles((theme) => ({
 
 }))
 
+
+
+
 const HeaderInfo = () => {
+    const alert = useAlert();
     const classes = useStyles();
+    const hist = useHistory();
     const user = useContext(UserContext);
     console.log(user)
+
+    const signOut =()=>{
+        try{
+            firebaseAuth.logout()
+            .then(res => {
+                console.log(res)
+                // if(res.user.uid !== undefined) {
+                    alert.success("Log out successfully!")
+                    // postUid(res.user.uid);
+                    hist.push({
+                        pathname: '/landing',
+                    })
+                // }
+            }).catch(err => {
+                alert.error(err.message)
+            })
+        }catch(error){
+            alert(error.message)
+        }
+    
+    }
 
     return (
         <React.Fragment>
@@ -48,7 +82,7 @@ const HeaderInfo = () => {
                         <IconButton style={{marginRight: '6px'}}>
                             <AccountCircleIcon />
                         </IconButton>
-                        <IconButton>
+                        <IconButton onClick={signOut}>
                             <ExitToAppIcon />
                         </IconButton>
                     </Grid>

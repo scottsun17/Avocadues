@@ -156,6 +156,31 @@ export default function SignIn(props) {
           });
     }
     
+    const loginWithFacebook = () => {
+        const provider = new firebase.auth.FacebookAuthProvider();
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+            // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+            const token = result.credential.accessToken;
+            // The signed-in user info.
+            const user = result.user;
+            console.log(user);
+            alert.success("Log in successfully!")
+            hist.push({
+                pathname: '/home',
+                query: { user: user },
+            })
+            // ...
+          }).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebaseAuth.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            alert.error(error.message)
+          });
+    }    
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />         
@@ -207,10 +232,9 @@ export default function SignIn(props) {
                 </Box>
                 <Box>
                 
-                    <IconButton ><FacebookIcon /></IconButton>
-                    <IconButton ><LinkedInIcon /></IconButton>
+                    <IconButton onClick={loginWithFacebook}><FacebookIcon /></IconButton>
+                    {/* <IconButton ><LinkedInIcon /></IconButton> */}
                     <IconButton onClick={loginWithGithub}><GitHubIcon  style={{fontSize: "18px"}}/></IconButton>
-                    {/* <IconButton ><img width="32px" alt="google" src={googleIcon}/></IconButton> */}
                 </Box>
                 <Box mt={2}>
                     <Typography component="span" variant="body2" className={classes.signup}>
