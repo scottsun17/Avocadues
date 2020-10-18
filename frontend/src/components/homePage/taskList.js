@@ -207,24 +207,22 @@ export default function TaskList(props) {
     return { inProcess: arr1, done: arr2 };
   };
 
-  const { register, handleSubmit, watch, errors } = useForm({
+  const { register, handleSubmit, errors } = useForm({
     defaultValues: {
       content: "",
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
     setTaskDescription(data.content);
-    try {
-      axios.post(
-        URL + "addNewTask?description=" + data.content + "&category_id=" + cid
-      );
-      alert.success("Task added!");
-      handleClose();
-    } catch (error) {
-      alert.error(error.message);
-    }
+    const res = await axios.post(
+      URL + "addNewTask?description=" + data.content + "&category_id=" + cid
+    );
+    console.log(res);
+    fetchTasks();
+    alert.success("Task added!");
+    handleClose();
   };
 
   const handleChange = (event, newValue) => {
