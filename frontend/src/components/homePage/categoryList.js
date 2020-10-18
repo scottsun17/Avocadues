@@ -22,12 +22,14 @@ function TabPanel(props) {
   );
 }
 
+// export const CategoryContext = React.createContext();
+
 const CategoryList = (props) => {
   const classes = useStyles();
   const categoryArr = props.list;
+  const [value, setValue] = React.useState(0);
   console.log(props);
   console.log(categoryArr);
-  const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -35,32 +37,32 @@ const CategoryList = (props) => {
 
   return (
     <div className={classes.root}>
-      <Tabs
-        orientation="vertical"
-        variant="scrollable"
-        value={value}
-        onChange={handleChange}
-        className={classes.tabs}
-      >
+        <Tabs
+          orientation="vertical"
+          variant="scrollable"
+          value={value}
+          onChange={handleChange}
+          className={classes.tabs}
+        >
+          {categoryArr ? (
+            categoryArr.map((item) => {
+              return <Tab label={item.categoryName} key={item.category_id} />;
+            })
+          ) : (
+            <div>Loading</div>
+          )}
+        </Tabs>
         {categoryArr ? (
-          categoryArr.map((item) => {
-            return <Tab label={item.categoryName} key={item.category_id} />;
+          categoryArr.map((item, index) => {
+            return (
+              <TabPanel value={value} index={index} key={item.category_id}>
+                <TaskList cid={item.category_id} />
+              </TabPanel>
+            );
           })
         ) : (
           <div>Loading</div>
         )}
-      </Tabs>
-      {categoryArr ? (
-        categoryArr.map((item, index) => {
-          return (
-            <TabPanel value={value} index={index}>
-              <TaskList cid={item.category_id}/>
-            </TabPanel>
-          );
-        })
-      ) : (
-        <div>Loading</div>
-      )}
     </div>
   );
 };

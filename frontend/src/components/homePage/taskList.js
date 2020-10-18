@@ -26,6 +26,8 @@ import { motion } from "framer-motion";
 // import { useSpring, animated } from "react-spring/web.cjs"; // web.cjs is required for IE 11 support
 import TaskItem from "./taskItem";
 import "../../css/App.css";
+// react-alert
+import { useAlert } from "react-alert";
 
 const useStyles = makeStyles((theme) => ({
   taskList: {
@@ -83,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
   },
   list: {
     overflow: "auto",
-    maxHeight: 600,
+    maxHeight: 350,
   },
 }));
 
@@ -172,11 +174,14 @@ function TabPanel(props) {
 export default function TaskList(props) {
   const classes = useStyles();
   const cid = props.cid;
+  const alert = useAlert();
+
   const [value, setValue] = React.useState(0);
   const [open, setOpen] = React.useState(false);
   const [taskArr, setTaskArr] = React.useState([]);
   const [inProcess, setInProcess] = React.useState([]);
   const [done, setDone] = React.useState([]);
+  const [taskDescription, setTaskDescription] = React.useState("");
 
   const fetchTasks = async () => {
     const res = await axios.post(
@@ -204,17 +209,22 @@ export default function TaskList(props) {
 
   const { register, handleSubmit, watch, errors } = useForm({
     defaultValues: {
-      taskContent: "",
+      content: "",
     },
   });
 
   const onSubmit = (data) => {
     console.log(data);
-    // try {
-
-    // } catch (err) {
-    //   console.log(err.message);
-    // }
+    setTaskDescription(data.content);
+    try {
+      axios.post(
+        URL + "addNewTask?description=" + data.content + "&category_id=" + cid
+      );
+      alert.success("Task added!");
+      handleClose();
+    } catch (error) {
+      alert.error(error.message);
+    }
   };
 
   const handleChange = (event, newValue) => {
@@ -231,7 +241,7 @@ export default function TaskList(props) {
 
   useEffect(() => {
     fetchTasks();
-  }, []);
+  }, [taskDescription]);
 
   return (
     <React.Fragment>
