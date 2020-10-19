@@ -51,7 +51,7 @@ export default function TaskItem(props) {
         >
           <Grid item container justify="flex-start" alignItems="baseline" xs>
             <Grid item xs={1} className={classes.checkbox}>
-              <CheckAnim status={status} tid={taskId} />
+              <CheckAnim status={status} tid={taskId} fetchData={fetchData}/>
             </Grid>
             <Grid item xs>
               {status == true ? (
