@@ -32,32 +32,26 @@ const Home = (props) => {
 
   const fetchCategories = async () => {
     const res = await axios.post(URL + "getCategoryByUid?uid=" + user.uid);
-    console.log(res);
     setCategories(res);
   };
 
   useEffect(() => {
     fetchCategories();
-    console.log(categories);
   }, []);
 
   console.log(props);
 
   return (
     <React.Fragment>
-      {user !== undefined ? (
-        <UserContext.Provider value={user}>
-          <Container component="main" maxWidth="md">
-            <CssBaseline />
-            <Paper className={classes.root}>
-              <HeaderInfo />
-              <CategoryList list={categories.data}/>
-            </Paper>
-          </Container>
-        </UserContext.Provider>
-      ) : (
-        <div> loading...</div>
-      )}
+      <UserContext.Provider value={user}>
+        <Container component="main" maxWidth="md">
+          <CssBaseline />
+          <Paper className={classes.root}>
+            <HeaderInfo />
+            <CategoryList list={categories.data} />
+          </Paper>
+        </Container>
+      </UserContext.Provider>
     </React.Fragment>
   );
 };
@@ -67,7 +61,7 @@ const homePage = (props) => {
 
   return (
     <div className="App">
-      <Home user={user} />
+      {user !== undefined ? <Home user={user} /> : <div> loading...</div>}
     </div>
   );
 };

@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import mojs from "@mojs/core";
 
 import { Checkbox } from "@material-ui/core";
+// url axios
+import axios from "axios";
+import { URL } from "../../config";
 
 const burst = new mojs.Burst({
   left: 0,
@@ -17,14 +20,23 @@ const burst = new mojs.Burst({
   },
 });
 
-export default function CheckAnim() {
+export default function CheckAnim(props) {
+  const { tid, status } = props;
+  const [checkStatus, setCheckStatus] = useState(status);
+
+  const handleChange = async() => {
+    setCheckStatus(!checkStatus);
+    await axios.post(URL + "updateTaskStatus?task_id=" + tid + "&status=" + !status);
+    // console.log(event.target.checked);
+  };
+
   const play = (e) => {
     burst.tune({ x: e.pageX, y: e.pageY }).setSpeed(5).replay();
   };
 
   return (
-    <div>
-      <Checkbox onClick={play} color="primary" />
+    <div onClick={play}>
+      <Checkbox checked={checkStatus} onChange={handleChange} color="primary" />
     </div>
   );
 }

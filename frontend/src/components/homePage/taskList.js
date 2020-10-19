@@ -171,6 +171,8 @@ function TabPanel(props) {
 //   onExited: PropTypes.func,
 // };
 
+// export const CategoryContext = React.createContext();
+
 export default function TaskList(props) {
   const classes = useStyles();
   const cid = props.cid;
@@ -187,6 +189,7 @@ export default function TaskList(props) {
     const res = await axios.post(
       URL + "getTasksByCategoryId?category_id=" + cid
     );
+    console.log(res.data)
     const arr = splitTaskByStatus(res.data);
     console.log(arr);
     setTaskArr(res.data);
@@ -195,10 +198,10 @@ export default function TaskList(props) {
   };
 
   const splitTaskByStatus = (arr) => {
-    const arr1 = [];
-    const arr2 = [];
+    const arr1 = []; // In process
+    const arr2 = []; // Done
     arr.forEach((ele) => {
-      if (!ele.status) {
+      if (ele.status) {
         arr2.push(ele);
       } else {
         arr1.push(ele);
@@ -332,10 +335,10 @@ export default function TaskList(props) {
           <List className={classes.list}>
             {taskArr ? (
               taskArr.length != 0 ? (
-                done.map((item) => {
+                taskArr.map((item) => {
                   return (
                     <ListItem key={item.taskId}>
-                      <TaskItem content={item.description} />
+                      <TaskItem taskInfo={item} fetchData={fetchTasks}/>
                     </ListItem>
                   );
                 })
@@ -351,10 +354,10 @@ export default function TaskList(props) {
           <List className={classes.list}>
             {inProcess ? (
               inProcess.length != 0 ? (
-                done.map((item) => {
+                inProcess.map((item) => {
                   return (
                     <ListItem key={item.taskId}>
-                      <TaskItem content={item.description} />
+                      <TaskItem taskInfo={item} fetchData={fetchTasks}/>
                     </ListItem>
                   );
                 })
@@ -373,7 +376,7 @@ export default function TaskList(props) {
                 done.map((item) => {
                   return (
                     <ListItem key={item.taskId}>
-                      <TaskItem content={item.description} />
+                      <TaskItem taskInfo={item} fetchData={fetchTasks}/>
                     </ListItem>
                   );
                 })

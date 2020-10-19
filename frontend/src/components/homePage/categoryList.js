@@ -22,7 +22,6 @@ function TabPanel(props) {
   );
 }
 
-// export const CategoryContext = React.createContext();
 
 const CategoryList = (props) => {
   const classes = useStyles();
