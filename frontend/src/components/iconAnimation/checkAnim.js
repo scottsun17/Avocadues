@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import mojs from "@mojs/core";
 
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import "../../css/icon.css";
 import { Checkbox } from "@material-ui/core";
+// url axios
+import axios from "axios";
+import { URL } from "../../config";
+
+// react-alert
+import { useAlert } from "react-alert";
 
 const burst = new mojs.Burst({
   left: 0,
@@ -20,17 +23,28 @@ const burst = new mojs.Burst({
   },
 });
 
-export default function CheckAnim() {
-    const play = e => {
-        burst
-        .tune({ x: e.pageX, y: e.pageY })
-        .setSpeed(5)
-        .replay();
-    }
+export default function CheckAnim(props) {
+  const { tid, status, fetchData } = props;
+  const [checkStatus, setCheckStatus] = useState(status);
+  const alert = useAlert();
+
+  const handleChange = async () => {
+    setCheckStatus(!checkStatus);
+    await axios.post(
+      URL + "updateTaskStatus?task_id=" + tid + "&status=" + !status
+    );
+    fetchData();
+    alert.success("Task finished");
+    // console.log(event.target.checked);
+  };
+
+  const play = (e) => {
+    burst.tune({ x: e.pageX, y: e.pageY }).setSpeed(5).replay();
+  };
 
   return (
-    <div>
-        <Checkbox onClick={play} color="primary"/>
+    <div onClick={play}>
+      <Checkbox checked={checkStatus} onChange={handleChange} color="primary" />
     </div>
   );
 }

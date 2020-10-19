@@ -1,6 +1,7 @@
 import app from "firebase/app";
 import "firebase/auth";
 import "firebase/firebase-firestore";
+import firebase from "firebase";
 
 const config = {
   apiKey: "AIzaSyCMWj_MN8HshQ6FrPCDgH8dasXsQt2M1B0",
@@ -13,7 +14,7 @@ const config = {
   measurementId: "G-EFBBR1PX8N",
 };
 
-class Firebase {
+class FirebaseAuth {
   constructor() {
     app.initializeApp(config);
     this.auth = app.auth();
@@ -22,8 +23,8 @@ class Firebase {
   async login(email, password) {
     return await this.auth.signInWithEmailAndPassword(email, password);
   }
-  async logout(email, password) {
-    return await this.auth.signOutWithEmailAndPassword(email, password);
+  async logout() {
+    return await this.auth.signOut();
   }
   async register(name, email, password) {
     await this.auth.createUserWithEmailAndPassword(email, password);
@@ -34,6 +35,7 @@ class Firebase {
   async resetpassword(email){
     return await this.auth.sendPasswordResetEmail(email);
   }
- 
+  
+
 }
-export default new Firebase();
+export default new FirebaseAuth();
