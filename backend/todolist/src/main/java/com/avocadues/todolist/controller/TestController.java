@@ -37,6 +37,50 @@ public class TestController {
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public void addUser(User user) {
         userMapper.addUser(user);
+        Category category1 = new Category();
+        category1.setCategoryId(IdUtils.getIncreaseIdByNanoTime());
+        category1.setCategoryName("Work");
+        category1.setColor("#e66767");
+        category1.setUid(user.getUid());
+
+        Category category2 = new Category();
+        category2.setCategoryId(IdUtils.getIncreaseIdByNanoTime());
+        category2.setCategoryName("School");
+        category2.setColor("#1abc9c");
+        category2.setUid(user.getUid());
+
+        categoryMapper.addCategory(category1);
+        categoryMapper.addCategory(category2);
+
+        Task task1 = new Task();
+        task1.setTaskId(IdUtils.getIncreaseIdByNanoTime());
+        task1.setStatus(false);
+        task1.setCategoryId(category1.getCategoryId());
+        task1.setDescription("Let me start doing some work!");
+
+        Task task2 = new Task();
+        task2.setTaskId(IdUtils.getIncreaseIdByNanoTime());
+        task2.setStatus(true);
+        task2.setCategoryId(category1.getCategoryId());
+        task2.setDescription("I have finished all the works!");
+
+        Task task3 = new Task();
+        task3.setTaskId(IdUtils.getIncreaseIdByNanoTime());
+        task3.setStatus(false);
+        task3.setCategoryId(category2.getCategoryId());
+        task3.setDescription("Let me start studying!");
+
+        Task task4 = new Task();
+        task4.setTaskId(IdUtils.getIncreaseIdByNanoTime());
+        task4.setStatus(true);
+        task4.setCategoryId(category2.getCategoryId());
+        task4.setDescription("I finished all my studying!");
+
+        taskMapper.addNewTask(task1);
+        taskMapper.addNewTask(task2);
+        taskMapper.addNewTask(task3);
+        taskMapper.addNewTask(task4);
+
     }
 
     /**
@@ -183,7 +227,7 @@ public class TestController {
     }
 
     /**
-     * Get a count of unfinished tasks and a count of finished task by userId
+     * Get a count of unfinished tasks and a count of finished task by uid
      * @param user
      * @return Map<String, Integer> key value pairs of finished and unfinished task count
      * 
