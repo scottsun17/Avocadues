@@ -1,6 +1,8 @@
 package com.avocadues.todolist.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.avocadues.todolist.entity.Category;
 import com.avocadues.todolist.entity.Task;
@@ -12,6 +14,7 @@ import com.avocadues.todolist.mapper.UserMapper;
 import com.avocadues.todolist.utils.IdUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -180,5 +183,34 @@ public class TestController {
         taskMapper.deleteAllTasksByCategoryId(task);
     }
 
+    /**
+     * Get a count of unfinished tasks and a count of finished task by userId
+     * @param user
+     * @return Map<String, Integer> key value pairs of finished and unfinished task count
+     * 
+     * url: http://ec2-18-217-91-161.us-east-2.compute.amazonaws.com:8080/getTaskStatusCountByUserId?uid=
+     */
+    @RequestMapping(value = "/getTaskStatusCountByUserId", method = RequestMethod.POST)
+    public Map<String, Integer> getTaskStatusCountByUserId(User user){
+        List<Category> categories = categoryMapper.getCategoryByUid(user);
+        int unfinshedCount = 0;
+        int finishedCount = 0;
 
+        for (Category category : categories) {
+            List<Task> tasks = taskMapper.getTasksByCategoryId(category);
+
+            for (Task task : tasks) {
+                if(!task.getStatus()){
+                    
+                    unfinshedCount++;
+                } else {
+                    finishedCount++;
+                }
+            }
+        }
+        Map<String, Integer> res = new HashMap<>();
+        res.put("unfinshedCount", unfinshedCount);
+        res.put("finishedCount", finishedCount);
+        return res;
+    }
 }

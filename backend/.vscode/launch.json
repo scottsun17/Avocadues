@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-TodolistApplication<todolist>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.avocadues.todolist.TodolistApplication",
+            "projectName": "todolist",
+            "args": ""
+        }
+    ]
+}

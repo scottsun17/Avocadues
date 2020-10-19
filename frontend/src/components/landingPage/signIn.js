@@ -30,6 +30,30 @@ import { Link, useHistory } from "react-router-dom";
 //firebase
 import firebase from '../firebase';
 
+const provider = new firebase.auth.TwitterAuthProvider();
+
+const twitterLogin = () => {
+    
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+        var token = result.credential.accessToken;
+        var secret = result.credential.secret;
+
+        var user = result.user;
+    }).catch(function(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+
+        var email = error.email;
+        var credential = error.credential;
+    });
+}
+
+
+
+
+
+
+
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
@@ -160,7 +184,7 @@ export default function SignIn(props) {
                     <Typography variant="caption" component="span" >or sign in with social networks</Typography>
                 </Box>
                 <Box>
-                    <IconButton ><FacebookIcon /></IconButton>
+                    <IconButton onClick={twitterLogin}><FacebookIcon /></IconButton>
                     <IconButton ><LinkedInIcon /></IconButton>
                     <IconButton ><GitHubIcon  style={{fontSize: "18px"}}/></IconButton>
                     {/* <IconButton ><img width="32px" alt="google" src={googleIcon}/></IconButton> */}
