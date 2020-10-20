@@ -82,8 +82,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
   paper: {
-    width: "20vw",
-    height: "30vh",
+    width: 400,
+    height: 360,
     backgroundColor: theme.palette.background.paper,
     borderRadius: theme.spacing(2),
     padding: theme.spacing(4),
@@ -156,10 +156,6 @@ function TabPanel(props) {
 
 const CategoryList = (props) => {
   const classes = useStyles();
-  // const categoryArr = props.list;
-  // const fetchData = props.fetchData;
-
-  // console.log(fetchData)
   const user = useContext(UserContext);
   const alert = useAlert();
 
@@ -194,12 +190,10 @@ const CategoryList = (props) => {
         "addCategory?category_name=" +
         data.content +
         "&color=" +
-        data.color +
+        color +
         "&uid=" +
         user.uid
     );
-    console.log(res);
-    // fetchData();
     fetchCategories();
     alert.success("Categroy added!");
     handleClose();
@@ -211,6 +205,15 @@ const CategoryList = (props) => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const deleteCategory = async (cid) => {
+    const res = await axios.post(
+      URL + "deleteCategoryByCategoryId?category_id=" + cid
+    );
+    console.log(res);
+    fetchCategories();
+    alert.success("Categroy deleted!");
   };
 
   let date = new Date().toLocaleDateString();
@@ -265,7 +268,10 @@ const CategoryList = (props) => {
                           </Typography>
                         </Grid>
                         <Grid item xs={1}>
-                          <IconButton style={{ padding: 4 }}>
+                          <IconButton
+                            style={{ padding: 4 }}
+                            onClick={() => deleteCategory(item.category_id)}
+                          >
                             <CloseIcon className={classes.closeIcon} />
                           </IconButton>
                         </Grid>
@@ -321,40 +327,89 @@ const CategoryList = (props) => {
                           This field is required
                         </Typography>
                       )}
-                      {/* <select name="color" className={classes.select} ref={register({ required: true })}>
-                        <option value=" " className={classes.option}>Add color</option>
-                        <option value="#e66767" className={classes.option}>Red</option>
-                        <option value="#1abc9c" className={classes.option}>Green</option>
-                        <option value="#778beb" className={classes.option}>Blue</option>
-                        <option value="#a4b0be" className={classes.option}>Grey</option>
-                        <option value="#2f3542" className={classes.option}>Dark</option>
-                        <option value="#f8a5c2" className={classes.option}>Pink</option>
-                      </select> */}
-                      <FormControl className={classes.formControl}>
+                      <FormControl className={classes.formControl} name="color">
                         <InputLabel>Add Color</InputLabel>
-                        <Select
-                          value={color}
-                          onChange={handleChange}
-                          ref={register({ required: true })}
-                        >
-                          <MenuItem value="#e66767">Red</MenuItem>
-                          <MenuItem value="#1abc9c">Green</MenuItem>
-                          <MenuItem value="#778beb">Blue</MenuItem>
-                          <MenuItem value="#a4b0be">Grey</MenuItem>
-                          <MenuItem value="#2f3542">Dark</MenuItem>
-                          <MenuItem value="#f8a5c2">Pink</MenuItem>
+                        <Select value={color} onChange={handleChange}>
+                          <MenuItem value="%23e66767">
+                            <FiberManualRecordIcon
+                              className={classes.icon}
+                              style={{ color: "#e66767" }}
+                            />
+                            <Typography
+                              variant="body2"
+                              component="span"
+                              className={classes.categoryContent}
+                            >
+                              Red
+                            </Typography>
+                          </MenuItem>
+                          <MenuItem value="%231abc9c">
+                            <FiberManualRecordIcon
+                              className={classes.icon}
+                              style={{ color: "#1abc9c" }}
+                            />
+                            <Typography
+                              variant="body2"
+                              component="span"
+                              className={classes.categoryContent}
+                            >
+                              Green
+                            </Typography>
+                          </MenuItem>
+                          <MenuItem value="%23778beb">
+                            <FiberManualRecordIcon
+                              className={classes.icon}
+                              style={{ color: "#778beb" }}
+                            />
+                            <Typography
+                              variant="body2"
+                              component="span"
+                              className={classes.categoryContent}
+                            >
+                              Blue
+                            </Typography>
+                          </MenuItem>
+                          <MenuItem value="%23a4b0be">
+                            <FiberManualRecordIcon
+                              className={classes.icon}
+                              style={{ color: "#a4b0be" }}
+                            />
+                            <Typography
+                              variant="body2"
+                              component="span"
+                              className={classes.categoryContent}
+                            >
+                              Grey
+                            </Typography>
+                          </MenuItem>
+                          <MenuItem value="%232f3542">
+                            <FiberManualRecordIcon
+                              className={classes.icon}
+                              style={{ color: "#2f3542" }}
+                            />
+                            <Typography
+                              variant="body2"
+                              component="span"
+                              className={classes.categoryContent}
+                            >
+                              Dark
+                            </Typography>
+                          </MenuItem>
+                          <MenuItem value="%23f8a5c2">
+                            <FiberManualRecordIcon
+                              className={classes.icon}
+                              style={{ color: "#f8a5c2" }}
+                            />
+                            <Typography
+                              variant="body2"
+                              component="span"
+                              className={classes.categoryContent}
+                            >
+                              Pink
+                            </Typography>
+                          </MenuItem>
                         </Select>
                       </FormControl>
-                      {errors.color && (
-                        <Typography
-                          variant="caption"
-                          component="p"
-                          color="error"
-                          style={{ marginBottom: "4px" }}
-                        >
-                          Please choose one color
-                        </Typography>
-                      )}
                     </Grid>
                     <Grid item xs={12}>
                       <Button
