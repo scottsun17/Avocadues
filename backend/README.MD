@@ -53,10 +53,11 @@ Dependencies:
 
 ### User
 
-| Modifier and Type | Method and Description                  |
-| ----------------- | --------------------------------------- |
-| void              | <a href=#addUser>addUser(User user)</a> |
-| List<User>        | <a href=#getalluser>getAllUser()</a>    |
+| Modifier and Type    | Method and Description                                       |
+| -------------------- | ------------------------------------------------------------ |
+| void                 | <a href=#addUser>addUser(User user)</a>                      |
+| List<User>           | <a href=#getalluser>getAllUser()</a>                         |
+| Map<String, Integer> | <a href=#getTaskStatusCountByUserId>getTaskStatusCountByUserId(User user)</a> |
 
 
 
@@ -126,6 +127,26 @@ Get a list of all user uid
 <B>URL:</B> ``http://ec2-18-217-91-161.us-east-2.compute.amazonaws.com:8080/getAllUsers ``
 
 <b>Method:</b> GET
+
+---
+
+#### getTaskStatusCountByUserId(User user)<a id="getTaskStatusCountByUserId"> </a>
+
+public Map<String, Integer> getTaskStatusCountByUserId(User user)
+
+Get a count of unfinished tasks and a count of finished task by uid
+
+<b>Parameters:</b> 
+
+​	user - User entity
+
+<b>Return:</b>
+
+​	Map<String, Integer> key value pairs of finished and unfinished task count
+
+<B>URL:</B> ``http://ec2-18-217-91-161.us-east-2.compute.amazonaws.com:8080/getTaskStatusCountByUserId?uid= ``
+
+<b>Method:</b> POST
 
  
 

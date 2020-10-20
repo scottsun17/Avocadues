@@ -47,6 +47,30 @@ import firebaseAuth from "../firebase";
 import axios from "axios";
 import { URL } from "../../config";
 
+const provider = new firebase.auth.TwitterAuthProvider();
+
+const twitterLogin = () => {
+    
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+        var token = result.credential.accessToken;
+        var secret = result.credential.secret;
+
+        var user = result.user;
+    }).catch(function(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+
+        var email = error.email;
+        var credential = error.credential;
+    });
+}
+
+
+
+
+
+
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
