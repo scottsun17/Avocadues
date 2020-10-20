@@ -28,14 +28,17 @@ export default function CheckAnim(props) {
   const [checkStatus, setCheckStatus] = useState(status);
   const alert = useAlert();
 
-  const handleChange = async () => {
+  const handleChange = async (event) => {
     setCheckStatus(!checkStatus);
     await axios.post(
       URL + "updateTaskStatus?task_id=" + tid + "&status=" + !status
     );
     fetchData();
-    alert.success("Task finished");
-    // console.log(event.target.checked);
+    if(status) {
+      alert.info("Task restart!");
+    } else {
+      alert.success("Task finished");
+    }
   };
 
   const play = (e) => {

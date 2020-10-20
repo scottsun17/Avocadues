@@ -14,6 +14,7 @@ import CategoryList from "../components/homePage/categoryList";
 const useStyles = makeStyles((theme) => ({
   root: {
     borderRadius: theme.spacing(2),
+    margin: theme.spacing(0, 12),
   },
   title: {
     marginTop: theme.spacing(2),
@@ -39,12 +40,10 @@ const Home = (props) => {
     fetchCategories();
   }, []);
 
-  console.log(props);
-
   return (
     <React.Fragment>
       <UserContext.Provider value={user}>
-        <Container component="main" maxWidth="md">
+        <Container component="main" maxWidth="lg">
           <CssBaseline />
           <Paper className={classes.root}>
             <HeaderInfo />

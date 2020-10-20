@@ -31,7 +31,7 @@ import { useAlert } from "react-alert";
 
 const useStyles = makeStyles((theme) => ({
   taskList: {
-    width: 635,
+    width: "100%",
     height: "60vh",
     borderRadius: theme.spacing(4),
     padding: theme.spacing(4, 3, 1, 3),
@@ -46,6 +46,18 @@ const useStyles = makeStyles((theme) => ({
   panel: {
     padding: theme.spacing(4),
   },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  list: {
+    overflow: "auto",
+    maxHeight: "35vh",
+  },
+  header: {
+    paddingRight: theme.spacing(4),
+  },
+  // modal
   modal: {
     display: "flex",
     alignItems: "center",
@@ -58,10 +70,6 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.spacing(2),
     padding: theme.spacing(2, 4, 3),
     outline: 0,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
   },
   inputCard: {
     border: "0px solid",
@@ -82,10 +90,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     padding: theme.spacing(0, 6),
     flexGrow: 1,
-  },
-  list: {
-    overflow: "auto",
-    maxHeight: 350,
   },
 }));
 
@@ -189,10 +193,10 @@ export default function TaskList(props) {
     const res = await axios.post(
       URL + "getTasksByCategoryId?category_id=" + cid
     );
-    console.log(res.data)
+    console.log(res.data);
     const arr = splitTaskByStatus(res.data);
     console.log(arr);
-    setTaskArr(res.data);
+    setTaskArr(res.data.reverse());
     setInProcess(arr.inProcess);
     setDone(arr.done);
   };
@@ -252,6 +256,7 @@ export default function TaskList(props) {
           direction="row"
           justify="space-between"
           alignItems="center"
+          className={classes.header}
         >
           <Grid item>
             <MyTabs value={value} onChange={handleChange}>
@@ -338,7 +343,7 @@ export default function TaskList(props) {
                 taskArr.map((item) => {
                   return (
                     <ListItem key={item.taskId}>
-                      <TaskItem taskInfo={item} fetchData={fetchTasks}/>
+                      <TaskItem taskInfo={item} fetchData={fetchTasks} />
                     </ListItem>
                   );
                 })
@@ -357,7 +362,7 @@ export default function TaskList(props) {
                 inProcess.map((item) => {
                   return (
                     <ListItem key={item.taskId}>
-                      <TaskItem taskInfo={item} fetchData={fetchTasks}/>
+                      <TaskItem taskInfo={item} fetchData={fetchTasks} />
                     </ListItem>
                   );
                 })
@@ -376,7 +381,7 @@ export default function TaskList(props) {
                 done.map((item) => {
                   return (
                     <ListItem key={item.taskId}>
-                      <TaskItem taskInfo={item} fetchData={fetchTasks}/>
+                      <TaskItem taskInfo={item} fetchData={fetchTasks} />
                     </ListItem>
                   );
                 })
