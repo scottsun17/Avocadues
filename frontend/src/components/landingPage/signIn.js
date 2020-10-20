@@ -37,7 +37,7 @@ import googleIcon from "../../assets/imgs/icons/Google.png";
 import img from "../../assets/imgs/logo.png";
 
 // router
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory,withRouter } from "react-router-dom";
 
 //firebaseAuth
 import firebase from "firebase";
@@ -64,11 +64,6 @@ const twitterLogin = () => {
         var credential = error.credential;
     });
 }
-
-
-
-
-
 
 
 function Copyright() {
@@ -137,8 +132,7 @@ export default function SignIn(props) {
   const onSubmit = (data) => {
     console.log(data);
     try {
-      firebaseAuth
-        .login(data.email, data.password)
+         firebaseAuth.login(data.email, data.password)
         .then((res) => {
           console.log(res.user);
           if (res.user.uid !== undefined) {

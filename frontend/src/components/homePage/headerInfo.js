@@ -8,6 +8,9 @@ import { useContext } from "react";
 import { UserContext } from "../../pages/homePage";
 import img from "../../assets/imgs/avologo.png";
 
+// framer motion
+import { motion } from "framer-motion";
+
 // react-alert
 import { useAlert } from "react-alert";
 
@@ -67,11 +70,16 @@ const HeaderInfo = () => {
           alignItems="flex-start"
         >
           <Grid item className={classes.title} xs={4}>
-            <Typography variant="h4" component="div">
-              <div>
-              <img width="200px" src={img} alt="logo" />
-            </div>
-            </Typography>
+          
+              <motion.div 
+                initial={{ scale: 0 }}
+                animate={{  scale: 1 }}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.8 }}
+              >
+                 <img width="200px" src={img} alt="logo" />  
+            </motion.div>
+         
           </Grid>
           <Grid item className={classes.userInfo} xs={3}>
             {user != undefined ? (

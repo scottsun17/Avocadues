@@ -113,7 +113,7 @@ const SignUp = () => {
       firebase
         .register(data.username, data.email, data.password)
         .then((res) => {
-          postUid(res.user.uid);
+          postUid(firebase.getUid());
           alert.success("Sign up successfully!");
           hist.push({
             pathname: "/signin",
