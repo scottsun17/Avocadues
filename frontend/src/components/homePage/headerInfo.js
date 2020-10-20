@@ -22,11 +22,12 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3, 6, 0, 6),
   },
   title: {
-    paddingTop: theme.spacing(2),
+    // paddingTop: theme.spacing(2),
     color: "#2F4851",
     letterSpacing: "-1.5px",
   },
   userInfo: {
+    paddingTop: 16,
     height: 42,
   },
 }));
@@ -36,7 +37,6 @@ const HeaderInfo = () => {
   const classes = useStyles();
   const hist = useHistory();
   const user = useContext(UserContext);
-  console.log(user);
 
   const signOut = () => {
     try {
@@ -68,13 +68,13 @@ const HeaderInfo = () => {
         >
           <Grid item className={classes.title} xs={4}>
             <Typography variant="h4" component="div">
-              <div>
+            <div>
               <img width="200px" src={img} alt="logo" />
             </div>
             </Typography>
           </Grid>
           <Grid item className={classes.userInfo} xs={3}>
-            {user != undefined ? (
+            {user.displayName != null ? (
               <Typography
                 component="span"
                 variant="body1"

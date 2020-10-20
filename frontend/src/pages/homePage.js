@@ -47,7 +47,6 @@ const Home = (props) => {
           <CssBaseline />
           <Paper className={classes.root}>
             <HeaderInfo />
-            {/* <CategoryList list={categories.data} fetchData={fetchCategories}/> */}
             <CategoryList />
           </Paper>
         </Container>
