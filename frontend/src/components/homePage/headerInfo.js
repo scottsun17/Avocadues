@@ -6,6 +6,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { useContext } from "react";
 import { UserContext } from "../../pages/homePage";
+import img from "../../assets/imgs/avologo.png";
 
 // react-alert
 import { useAlert } from "react-alert";
@@ -67,7 +68,9 @@ const HeaderInfo = () => {
         >
           <Grid item className={classes.title} xs={4}>
             <Typography variant="h4" component="div">
-              <Box fontWeight="700">Avocadues</Box>
+              <div>
+              <img width="200px" src={img} alt="logo" />
+            </div>
             </Typography>
           </Grid>
           <Grid item className={classes.userInfo} xs={3}>
