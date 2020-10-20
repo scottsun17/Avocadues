@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Box,
@@ -11,6 +11,10 @@ import {
   Typography,
   Backdrop,
   Button,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@material-ui/core";
 import TaskList from "./taskList";
 
@@ -27,6 +31,7 @@ import "../../css/App.css";
 // react-alert
 import { useAlert } from "react-alert";
 import { grey } from "@material-ui/core/colors";
+import { UserContext } from "../../pages/homePage";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -77,11 +82,11 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
   paper: {
-    width: "40vw",
-    height: "20vh",
+    width: "20vw",
+    height: "30vh",
     backgroundColor: theme.palette.background.paper,
     borderRadius: theme.spacing(2),
-    padding: theme.spacing(2, 4, 3),
+    padding: theme.spacing(4),
     outline: 0,
   },
   inputCard: {
@@ -91,30 +96,53 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     width: "100%",
     height: "3rem",
-    margin: theme.spacing(0.5, 0, 1.5, 0),
+    marginBottom: theme.spacing(2),
     padding: theme.spacing(1.5),
     outline: "none",
   },
   submit: {
     textTransform: "none",
     width: "40%",
-    height: "2.5rem",
+    height: "3rem",
     borderRadius: "8px",
     marginTop: theme.spacing(1),
     padding: theme.spacing(0, 6),
     flexGrow: 1,
   },
+  // select: {
+  //   border: "0px solid",
+  //   borderRadius: "8px",
+  //   backgroundColor: grey[200],
+  //   width: "100%",
+  //   height: "3rem",
+  //   outline: "none",
+  //   padding: theme.spacing(1.5, 2.5, 1.5, 1.5),
+  // },
+  // option: {
+  //   border: "0px solid",
+  //   height: "50px",
+  //   lineHeight: "60px",
+  //   margin: theme.spacing(1),
+  //   width: "100%",
+  //   padding: theme.spacing(1, 2),
+  //   color: "#fff",
+  //   fontSize: "1.2rem",
+  // },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
 }));
 
-const colorMap = {
-  RED: "#e66767",
-  GREEN: "#1abc9c",
-  BLUE: "#778beb",
+// const colorMap = {
+//   RED: "#e66767",
+//   GREEN: "#1abc9c",
+//   BLUE: "#778beb",
 
-  GREY: "#a4b0be",
-  DARK: "#2f3542",
-  PINK: "#f8a5c2",
-};
+//   GREY: "#a4b0be",
+//   DARK: "#2f3542",
+//   PINK: "#f8a5c2",
+// };
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -128,30 +156,51 @@ function TabPanel(props) {
 
 const CategoryList = (props) => {
   const classes = useStyles();
-  const categoryArr = props.list;
+  // const categoryArr = props.list;
+  // const fetchData = props.fetchData;
+
+  // console.log(fetchData)
+  const user = useContext(UserContext);
   const alert = useAlert();
 
   const [value, setValue] = React.useState(0);
   const [open, setOpen] = React.useState(false);
+  const [categoryArr, setCategories] = React.useState([]);
   const [categroyName, setCategroyName] = React.useState("");
+  const [color, setColor] = React.useState("");
+
+  const handleChange = (event) => {
+    setColor(event.target.value);
+  };
 
   const { register, handleSubmit, errors } = useForm({
     defaultValues: {
       content: "",
+      color: "",
     },
   });
+
+  const fetchCategories = async () => {
+    const res = await axios.post(URL + "getCategoryByUid?uid=" + user.uid);
+    setCategories(res.data);
+    console.log(res.data);
+  };
 
   const onSubmit = async (data) => {
     console.log(data);
     setCategroyName(data.content);
-    await axios.post(
+    const res = await axios.post(
       URL +
         "addCategory?category_name=" +
         data.content +
         "&color=" +
-        "#e66767" +
-        "&uid="
+        data.color +
+        "&uid=" +
+        user.uid
     );
+    console.log(res);
+    // fetchData();
+    fetchCategories();
     alert.success("Categroy added!");
     handleClose();
   };
@@ -165,6 +214,10 @@ const CategoryList = (props) => {
   };
 
   let date = new Date().toLocaleDateString();
+
+  useEffect(() => {
+    fetchCategories();
+  }, [categroyName]);
 
   return (
     <div className={classes.root}>
@@ -243,6 +296,9 @@ const CategoryList = (props) => {
               }}
             >
               <div className={classes.paper}>
+                <Typography variant="h5" component="div">
+                  <Box fontWeight="300">Add New Category</Box>
+                </Typography>
                 <form
                   className={classes.form}
                   onSubmit={handleSubmit(onSubmit)}
@@ -263,6 +319,40 @@ const CategoryList = (props) => {
                           style={{ marginBottom: "4px" }}
                         >
                           This field is required
+                        </Typography>
+                      )}
+                      {/* <select name="color" className={classes.select} ref={register({ required: true })}>
+                        <option value=" " className={classes.option}>Add color</option>
+                        <option value="#e66767" className={classes.option}>Red</option>
+                        <option value="#1abc9c" className={classes.option}>Green</option>
+                        <option value="#778beb" className={classes.option}>Blue</option>
+                        <option value="#a4b0be" className={classes.option}>Grey</option>
+                        <option value="#2f3542" className={classes.option}>Dark</option>
+                        <option value="#f8a5c2" className={classes.option}>Pink</option>
+                      </select> */}
+                      <FormControl className={classes.formControl}>
+                        <InputLabel>Add Color</InputLabel>
+                        <Select
+                          value={color}
+                          onChange={handleChange}
+                          ref={register({ required: true })}
+                        >
+                          <MenuItem value="#e66767">Red</MenuItem>
+                          <MenuItem value="#1abc9c">Green</MenuItem>
+                          <MenuItem value="#778beb">Blue</MenuItem>
+                          <MenuItem value="#a4b0be">Grey</MenuItem>
+                          <MenuItem value="#2f3542">Dark</MenuItem>
+                          <MenuItem value="#f8a5c2">Pink</MenuItem>
+                        </Select>
+                      </FormControl>
+                      {errors.color && (
+                        <Typography
+                          variant="caption"
+                          component="p"
+                          color="error"
+                          style={{ marginBottom: "4px" }}
+                        >
+                          Please choose one color
                         </Typography>
                       )}
                     </Grid>

@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import {
   Backdrop,
+  Box,
   Button,
   ButtonBase,
   Grid,
@@ -296,6 +297,9 @@ export default function TaskList(props) {
               }}
             >
               <div className={classes.paper}>
+                <Typography variant="h4" component="div">
+                  <Box fontWeight="600">Add New Task</Box>
+                </Typography>
                 <form
                   className={classes.form}
                   onSubmit={handleSubmit(onSubmit)}

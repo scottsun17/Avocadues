@@ -28,17 +28,17 @@ export const UserContext = React.createContext();
 
 const Home = (props) => {
   const classes = useStyles();
-  const [categories, setCategories] = React.useState([]);
+  // const [categories, setCategories] = React.useState([]);
   const user = props.user;
 
-  const fetchCategories = async () => {
-    const res = await axios.post(URL + "getCategoryByUid?uid=" + user.uid);
-    setCategories(res);
-  };
+  // const fetchCategories = async () => {
+  //   const res = await axios.post(URL + "getCategoryByUid?uid=" + user.uid);
+  //   setCategories(res);
+  // };
 
-  useEffect(() => {
-    fetchCategories();
-  }, []);
+  // useEffect(() => {
+  //   fetchCategories();
+  // }, []);
 
   return (
     <React.Fragment>
@@ -47,7 +47,8 @@ const Home = (props) => {
           <CssBaseline />
           <Paper className={classes.root}>
             <HeaderInfo />
-            <CategoryList list={categories.data} />
+            {/* <CategoryList list={categories.data} fetchData={fetchCategories}/> */}
+            <CategoryList />
           </Paper>
         </Container>
       </UserContext.Provider>
