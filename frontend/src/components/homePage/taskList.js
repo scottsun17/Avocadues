@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import {
   Backdrop,
+  Box,
   Button,
   ButtonBase,
   Grid,
@@ -28,10 +29,12 @@ import TaskItem from "./taskItem";
 import "../../css/App.css";
 // react-alert
 import { useAlert } from "react-alert";
+import { useContext } from "react";
+import { FetchStatusContext } from "./categoryList";
 
 const useStyles = makeStyles((theme) => ({
   taskList: {
-    width: 635,
+    width: "100%",
     height: "60vh",
     borderRadius: theme.spacing(4),
     padding: theme.spacing(4, 3, 1, 3),
@@ -46,22 +49,30 @@ const useStyles = makeStyles((theme) => ({
   panel: {
     padding: theme.spacing(4),
   },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  list: {
+    overflow: "auto",
+    maxHeight: "35vh",
+  },
+  header: {
+    paddingRight: theme.spacing(4),
+  },
+  // modal
   modal: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
   },
   paper: {
-    width: "40vw",
-    height: "20vh",
+    width: 400,
+    height: 220,
     backgroundColor: theme.palette.background.paper,
     borderRadius: theme.spacing(2),
-    padding: theme.spacing(2, 4, 3),
+    padding: theme.spacing(4),
     outline: 0,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
   },
   inputCard: {
     border: "0px solid",
@@ -70,22 +81,17 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     width: "100%",
     height: "3rem",
-    margin: theme.spacing(0.5, 0, 1.5, 0),
+    marginBottom: theme.spacing(1),
     padding: theme.spacing(1.5),
     outline: "none",
   },
   submit: {
     textTransform: "none",
-    width: "40%",
-    height: "2.5rem",
+    width: "100%",
+    height: "3rem",
     borderRadius: "8px",
-    marginTop: theme.spacing(1),
     padding: theme.spacing(0, 6),
     flexGrow: 1,
-  },
-  list: {
-    overflow: "auto",
-    maxHeight: 350,
   },
 }));
 
@@ -131,6 +137,7 @@ const MyTab = withStyles((theme) => ({
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
+  const fetchStatus = props.fetchStatus;
   const classes = useStyles();
 
   return (
@@ -139,39 +146,6 @@ function TabPanel(props) {
     </div>
   );
 }
-
-// const Fade = React.forwardRef(function Fade(props, ref) {
-//     const { in: open, children, onEnter, onExited, ...other } = props;
-//     const style = useSpring({
-//       from: { opacity: 0 },
-//       to: { opacity: 1 },
-//       onStart: () => {
-//         if (open && onEnter) {
-//           onEnter();
-//         }
-//       },
-//       onRest: () => {
-//         if (!open && onExited) {
-//           onExited();
-//         }
-//       }
-//     });
-
-//     return (
-//       <animated.div ref={ref} style={style} {...other}>
-//         {children}
-//       </animated.div>
-//     );
-// });
-
-// Fade.propTypes = {
-//   children: PropTypes.element,
-//   in: PropTypes.bool.isRequired,
-//   onEnter: PropTypes.func,
-//   onExited: PropTypes.func,
-// };
-
-// export const CategoryContext = React.createContext();
 
 export default function TaskList(props) {
   const classes = useStyles();
@@ -185,14 +159,14 @@ export default function TaskList(props) {
   const [done, setDone] = React.useState([]);
   const [taskDescription, setTaskDescription] = React.useState("");
 
+  const fetchStatus = useContext(FetchStatusContext);
+
   const fetchTasks = async () => {
     const res = await axios.post(
       URL + "getTasksByCategoryId?category_id=" + cid
     );
-    console.log(res.data)
     const arr = splitTaskByStatus(res.data);
-    console.log(arr);
-    setTaskArr(res.data);
+    setTaskArr(res.data.reverse());
     setInProcess(arr.inProcess);
     setDone(arr.done);
   };
@@ -224,6 +198,7 @@ export default function TaskList(props) {
     );
     console.log(res);
     fetchTasks();
+    fetchStatus();
     alert.success("Task added!");
     handleClose();
   };
@@ -242,6 +217,7 @@ export default function TaskList(props) {
 
   useEffect(() => {
     fetchTasks();
+    fetchStatus();
   }, [taskDescription]);
 
   return (
@@ -252,6 +228,7 @@ export default function TaskList(props) {
           direction="row"
           justify="space-between"
           alignItems="center"
+          className={classes.header}
         >
           <Grid item>
             <MyTabs value={value} onChange={handleChange}>
@@ -291,6 +268,9 @@ export default function TaskList(props) {
               }}
             >
               <div className={classes.paper}>
+                <Typography variant="h5" component="div">
+                  <Box fontWeight="300">Add New Task</Box>
+                </Typography>
                 <form
                   className={classes.form}
                   onSubmit={handleSubmit(onSubmit)}
@@ -314,7 +294,7 @@ export default function TaskList(props) {
                         </Typography>
                       )}
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} style={{ marginTop: 24 }}>
                       <Button
                         variant="contained"
                         fullWidth
@@ -322,7 +302,7 @@ export default function TaskList(props) {
                         disableElevation
                         className={`btn-grad ${classes.submit}`}
                       >
-                        Send
+                        Add
                       </Button>
                     </Grid>
                   </Grid>
@@ -338,7 +318,7 @@ export default function TaskList(props) {
                 taskArr.map((item) => {
                   return (
                     <ListItem key={item.taskId}>
-                      <TaskItem taskInfo={item} fetchData={fetchTasks}/>
+                      <TaskItem taskInfo={item} fetchData={fetchTasks} />
                     </ListItem>
                   );
                 })
@@ -357,7 +337,7 @@ export default function TaskList(props) {
                 inProcess.map((item) => {
                   return (
                     <ListItem key={item.taskId}>
-                      <TaskItem taskInfo={item} fetchData={fetchTasks}/>
+                      <TaskItem taskInfo={item} fetchData={fetchTasks} />
                     </ListItem>
                   );
                 })

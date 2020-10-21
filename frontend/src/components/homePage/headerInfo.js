@@ -6,6 +6,10 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { useContext } from "react";
 import { UserContext } from "../../pages/homePage";
+import img from "../../assets/imgs/avologo.png";
+
+// framer motion
+import { motion } from "framer-motion";
 
 // react-alert
 import { useAlert } from "react-alert";
@@ -21,11 +25,12 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3, 6, 0, 6),
   },
   title: {
-    paddingTop: theme.spacing(2),
+    // paddingTop: theme.spacing(2),
     color: "#2F4851",
     letterSpacing: "-1.5px",
   },
   userInfo: {
+    paddingTop: 16,
     height: 42,
   },
 }));
@@ -35,7 +40,6 @@ const HeaderInfo = () => {
   const classes = useStyles();
   const hist = useHistory();
   const user = useContext(UserContext);
-  console.log(user);
 
   const signOut = () => {
     try {
@@ -66,12 +70,27 @@ const HeaderInfo = () => {
           alignItems="flex-start"
         >
           <Grid item className={classes.title} xs={4}>
+<<<<<<< HEAD
+          
+              <motion.div 
+                initial={{ scale: 0 }}
+                animate={{  scale: 1 }}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.8 }}
+              >
+                 <img width="200px" src={img} alt="logo" />  
+            </motion.div>
+         
+=======
             <Typography variant="h4" component="div">
-              <Box fontWeight="700">Avocadues</Box>
+            <div>
+              <img width="200px" src={img} alt="logo" />
+            </div>
             </Typography>
+>>>>>>> d633968af474a069d7425e3757671349966987e2
           </Grid>
           <Grid item className={classes.userInfo} xs={3}>
-            {user != undefined ? (
+            {user.displayName != null ? (
               <Typography
                 component="span"
                 variant="body1"

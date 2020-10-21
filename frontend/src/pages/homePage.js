@@ -14,6 +14,7 @@ import CategoryList from "../components/homePage/categoryList";
 const useStyles = makeStyles((theme) => ({
   root: {
     borderRadius: theme.spacing(2),
+    margin: theme.spacing(0, 12),
   },
   title: {
     marginTop: theme.spacing(2),
@@ -27,28 +28,26 @@ export const UserContext = React.createContext();
 
 const Home = (props) => {
   const classes = useStyles();
-  const [categories, setCategories] = React.useState([]);
+  // const [categories, setCategories] = React.useState([]);
   const user = props.user;
 
-  const fetchCategories = async () => {
-    const res = await axios.post(URL + "getCategoryByUid?uid=" + user.uid);
-    setCategories(res);
-  };
+  // const fetchCategories = async () => {
+  //   const res = await axios.post(URL + "getCategoryByUid?uid=" + user.uid);
+  //   setCategories(res);
+  // };
 
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  console.log(props);
+  // useEffect(() => {
+  //   fetchCategories();
+  // }, []);
 
   return (
     <React.Fragment>
       <UserContext.Provider value={user}>
-        <Container component="main" maxWidth="md">
+        <Container component="main" maxWidth="lg">
           <CssBaseline />
           <Paper className={classes.root}>
             <HeaderInfo />
-            <CategoryList list={categories.data} />
+            <CategoryList />
           </Paper>
         </Container>
       </UserContext.Provider>

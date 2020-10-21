@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import mojs from "@mojs/core";
 
 import { Checkbox } from "@material-ui/core";
@@ -8,6 +8,7 @@ import { URL } from "../../config";
 
 // react-alert
 import { useAlert } from "react-alert";
+import { FetchStatusContext } from "../homePage/categoryList";
 
 const burst = new mojs.Burst({
   left: 0,
@@ -28,14 +29,20 @@ export default function CheckAnim(props) {
   const [checkStatus, setCheckStatus] = useState(status);
   const alert = useAlert();
 
-  const handleChange = async () => {
+  const fetchStatus = useContext(FetchStatusContext);
+
+  const handleChange = async (event) => {
     setCheckStatus(!checkStatus);
     await axios.post(
       URL + "updateTaskStatus?task_id=" + tid + "&status=" + !status
     );
     fetchData();
-    alert.success("Task finished");
-    // console.log(event.target.checked);
+    fetchStatus();
+    if(status) {
+      alert.info("Task restart!");
+    } else {
+      alert.success("Task finished");
+    }
   };
 
   const play = (e) => {

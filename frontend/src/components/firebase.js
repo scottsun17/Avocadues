@@ -20,13 +20,14 @@ class FirebaseAuth {
     this.auth = app.auth();
     this.db = app.firestore();
   }
-  async login(email, password) {
-    return await this.auth.signInWithEmailAndPassword(email, password);
+  login(email, password) {
+    return this.auth.signInWithEmailAndPassword(email, password);
   }
-  async logout() {
-    return await this.auth.signOut();
+  logout() {
+    return this.auth.signOut();
   }
   async register(name, email, password) {
+
     await this.auth.createUserWithEmailAndPassword(email, password);
     return this.auth.currentUser.updateProfile({
       displayName: name,
@@ -35,7 +36,18 @@ class FirebaseAuth {
   async resetpassword(email){
     return await this.auth.sendPasswordResetEmail(email);
   }
-  
 
+ isInitialized(){
+    return new Promise(resolve => {
+      this.auth.onAuthStateChanged(resolve)
+    })
+  }
+  // getCurrentUsername(){
+  //   return this.auth.currentUser && this.auth.currentUser.displayName
+  // }
+  getUid(){
+    return this.auth.currentUser.uid
+  }
 }
 export default new FirebaseAuth();
+ 

@@ -11,6 +11,8 @@ import { URL } from "../../config";
 
 // react-alert
 import { useAlert } from "react-alert";
+import { useContext } from "react";
+import { FetchStatusContext } from "./categoryList";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,9 +36,12 @@ export default function TaskItem(props) {
   const classes = useStyles();
   const alert = useAlert();
 
+  const fetchStatus = useContext(FetchStatusContext);
+
   const deleteTask = async () => {
     await axios.post(URL + "deleteTaskByTaskId?task_id=" + taskId);
     fetchData();
+    fetchStatus()
     alert.success("Deleted task!");
   };
 
@@ -55,9 +60,9 @@ export default function TaskItem(props) {
             </Grid>
             <Grid item xs>
               {status == true ? (
-                <Typography variant="body2" variant="p" style={{textDecoration: 'line-through'}}>{description}</Typography>
+                <Typography variant="body2" component="p" style={{textDecoration: 'line-through'}}>{description}</Typography>
               ) : (
-                <Typography variant="body2" variant="p">{description}</Typography>
+                <Typography variant="body2" component="p">{description}</Typography>
               )}
             </Grid>
           </Grid>
