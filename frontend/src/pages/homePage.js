@@ -6,9 +6,6 @@ import HeaderInfo from "../components/homePage/headerInfo";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper, Container, CssBaseline } from "@material-ui/core";
 
-// url axios
-import axios from "axios";
-import { URL } from "../config";
 import CategoryList from "../components/homePage/categoryList";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,17 +25,7 @@ export const UserContext = React.createContext();
 
 const Home = (props) => {
   const classes = useStyles();
-  // const [categories, setCategories] = React.useState([]);
   const user = props.user;
-
-  // const fetchCategories = async () => {
-  //   const res = await axios.post(URL + "getCategoryByUid?uid=" + user.uid);
-  //   setCategories(res);
-  // };
-
-  // useEffect(() => {
-  //   fetchCategories();
-  // }, []);
 
   return (
     <React.Fragment>

@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, IconButton, Typography } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
+import ClearIcon from '@material-ui/icons/Clear';
 import CheckAnim from "../iconAnimation/checkAnim";
 import "../../css/App.css";
 
@@ -68,7 +68,7 @@ export default function TaskItem(props) {
           </Grid>
           <Grid item xs={1} className={classes.deletebtn}>
             <IconButton onClick={deleteTask}>
-              <DeleteIcon />
+              <ClearIcon style={{ color: "#909297E6", fontSize: "12px"}}/>
             </IconButton>
           </Grid>
         </Grid>

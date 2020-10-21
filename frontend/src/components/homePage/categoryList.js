@@ -53,6 +53,11 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "start",
     padding: theme.spacing(1, 2),
     borderRadius: theme.spacing(1),
+    marginBottom: 8,
+    "&:focus": {
+      color: '#ffffff',
+      backgroundColor: '#AED580'
+    }
   },
   icon: {
     paddingTop: 6,
@@ -60,6 +65,12 @@ const useStyles = makeStyles((theme) => ({
   },
   icon2: {
     fontSize: 18,
+  },
+  iconButton: {
+    display: 'none',
+    "&:hover": {
+      display: 'unset'
+    }
   },
   closeIcon: {
     fontSize: 12,
@@ -74,9 +85,8 @@ const useStyles = makeStyles((theme) => ({
   addCategroyBtn: {
     width: "90%",
     padding: theme.spacing(1, 2),
-    backgroundColor: "#aed581",
     borderRadius: 4,
-    color: "white",
+    color: "#757575E8",
   },
   userStatus: {
     height: 120,
@@ -237,11 +247,11 @@ const CategoryList = (props) => {
                   categoryArr.map((item, index) => {
                     return (
                       <ListItem
-                      className={classes.listItem}
-                      key={item.category_id}
-                      button
-                      onClick={() => setValue(index)}
-                      disableTouchRipple
+                        className={classes.listItem}
+                        key={item.category_id}
+                        button
+                        onClick={() => setValue(index)}
+                        disableTouchRipple
                       >
                         <Grid
                           container
@@ -266,6 +276,7 @@ const CategoryList = (props) => {
                             <IconButton
                               style={{ padding: 4 }}
                               onClick={() => deleteCategory(item.category_id)}
+                              className={classes.iconButton}
                               >
                               <CloseIcon className={classes.closeIcon} />
                             </IconButton>
