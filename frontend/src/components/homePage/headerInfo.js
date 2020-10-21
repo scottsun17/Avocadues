@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3, 6, 0, 6),
   },
   title: {
-    // paddingTop: theme.spacing(2),
     color: "#2F4851",
     letterSpacing: "-1.5px",
   },
@@ -70,10 +69,6 @@ const HeaderInfo = () => {
           alignItems="flex-start"
         >
           <Grid item className={classes.title} xs={4}>
-<<<<<<< HEAD
-=======
-          
->>>>>>> 62c3a8bbc5ffb1ed62da75491d59736255a1a7ed
               <motion.div 
                 initial={{ scale: 0 }}
                 animate={{  scale: 1 }}

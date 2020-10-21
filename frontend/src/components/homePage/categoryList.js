@@ -37,15 +37,16 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     padding: theme.spacing(2, 6),
+    height: "62vh"
+  },
+  userStatus: {
+    minHeight: '20vh',
+    padding: theme.spacing(4, 1),
+    marginBottom: theme.spacing(1),
   },
   categoryBtns: {
     maxHeight: "30vh",
     overflow: "auto",
-  },
-  categoryBtn: {
-    width: 120,
-    padding: theme.spacing(0.5, 1),
-    borderRadius: 4,
   },
   listItem: {
     textTransform: "none",
@@ -59,6 +60,13 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: '#AED580'
     }
   },
+  addCategroy: {
+    textTransform: "none",
+    display: "flex",
+    justifyContent: "start",
+    padding: theme.spacing(1, 2),
+    borderRadius: theme.spacing(1),
+  },
   icon: {
     paddingTop: 6,
     fontSize: 18,
@@ -66,32 +74,13 @@ const useStyles = makeStyles((theme) => ({
   icon2: {
     fontSize: 18,
   },
-  iconButton: {
-    display: 'none',
-    "&:hover": {
-      display: 'unset'
-    }
-  },
   closeIcon: {
     fontSize: 12,
   },
   categoryContent: {
     marginLeft: 8,
   },
-  addCategroy: {
-    display: "flex",
-    justifyContent: "center",
-  },
-  addCategroyBtn: {
-    width: "90%",
-    padding: theme.spacing(1, 2),
-    borderRadius: 4,
-    color: "#757575E8",
-  },
-  userStatus: {
-    height: 120,
-    marginBottom: theme.spacing(4),
-  },
+
   // modal
   modal: {
     display: "flex",
@@ -211,8 +200,8 @@ const CategoryList = (props) => {
     const res = await axios.post(
       URL + "deleteCategoryByCategoryId?category_id=" + cid
     );
-    console.log(res);
     fetchCategories();
+    setValue(value - 1);
     alert.success("Categroy deleted!");
   };
 
@@ -221,234 +210,250 @@ const CategoryList = (props) => {
   useEffect(() => {
     fetchCategories();
     fetchStatus();
-  }, [categroyName]);
+  }, [categroyName, value]);
 
   return (
     <div className={classes.root}>
       <FetchStatusContext.Provider value={fetchStatus}>
         <Grid container>
-        <Grid item xs={3}>
-          <div className={classes.userStatus}>
-            <Typography variant="h5" component="div">
-              <Box fontWeight="600" component="p">
-                Today is {date}
-              </Box>
-            </Typography>
-            {userStatus ?
-              <Typography variant="body1" component="p">
-                Today you have {userStatus.unfinshedCount} to dos, and {userStatus.finishedCount} are done.
-              </Typography> : <div>loading...</div>
-            }
-          </div>
-          <Grid style={{ paddingLeft: 12 }} container justify="center">
-            <Grid item xs={12}>
-              <List className={classes.categoryBtns}>
-                {categoryArr ? (
-                  categoryArr.map((item, index) => {
-                    return (
-                      <ListItem
-                        className={classes.listItem}
-                        key={item.category_id}
-                        button
-                        onClick={() => setValue(index)}
-                        disableTouchRipple
-                      >
-                        <Grid
-                          container
-                          direction="row"
-                          justify="space-between"
-                          alignItems="baseline"
-                          >
-                          <Grid item xs>
-                            <FiberManualRecordIcon
-                              className={classes.icon}
-                              style={{ color: `${item.color}` }}
-                              />
-                            <Typography
-                              variant="body2"
-                              component="span"
-                              className={classes.categoryContent}
-                              >
-                              {item.categoryName}
-                            </Typography>
-                          </Grid>
-                          <Grid item xs={1}>
-                            <IconButton
-                              style={{ padding: 4 }}
-                              onClick={() => deleteCategory(item.category_id)}
-                              className={classes.iconButton}
-                              >
-                              <CloseIcon className={classes.closeIcon} />
-                            </IconButton>
-                          </Grid>
-                        </Grid>
-                      </ListItem>
-                    );
-                  })
-                  ) : (
-                    <div className={classes.categoryBtns}>Loading</div>
-                    )}
-                </List>
-              </Grid>
-              <Grid item xs className={classes.addCategroy}>
-              <ButtonBase
-                color="primary"
-                className={classes.addCategroyBtn}
-                onClick={handleOpen}
-              >
-                <AddCircleIcon style={{ marginRight: 8 }} />
-                <Typography>Add New</Typography>
-              </ButtonBase>
-            </Grid>
-            <Modal
-              className={classes.modal}
-              open={open}
-              onClose={handleClose}
-              closeAfterTransition
-              BackdropComponent={Backdrop}
-              BackdropProps={{
-                timeout: 500,
-              }}
-            >
-              <div className={classes.paper}>
-                <Typography variant="h5" component="div">
-                  <Box fontWeight="300">Add New Category</Box>
-                </Typography>
-                <form
-                  className={classes.form}
-                  onSubmit={handleSubmit(onSubmit)}
-                >
-                  <Grid container alignItems="center">
-                    <Grid item xs={12}>
-                      <input
-                        name="content"
-                        ref={register({ required: true })}
-                        className={classes.inputCard}
-                        placeholder="New Category"
-                      />
-                      {errors.username && (
-                        <Typography
-                          variant="caption"
-                          component="p"
-                          color="error"
-                          style={{ marginBottom: "4px" }}
+          <Grid item xs={3}>
+            <div className={classes.userStatus}>
+              <Typography variant="h5" component="div">
+                <Box fontWeight="600">
+                  Today is {date}
+                </Box>
+              </Typography>
+              {userStatus ?
+                <Typography variant="body1" component="p">
+                  Today you have {userStatus.unfinshedCount} to dos, and {userStatus.finishedCount} are done.
+                </Typography> : <div>loading...</div>
+              }
+            </div>
+            <Grid container>
+              <Grid item xs={12}>
+                <List className={classes.categoryBtns}>
+                  {categoryArr.length ? (
+                    categoryArr.map((item, index) => {
+                      return (
+                        <ListItem
+                          className={classes.listItem}
+                          key={item.category_id}
+                          button
+                          onClick={() => setValue(index)}
+                          disableTouchRipple
                         >
-                          This field is required
-                        </Typography>
-                      )}
-                      <FormControl className={classes.formControl} name="color">
-                        <InputLabel>Add Color</InputLabel>
-                        <Select value={color} onChange={handleChange}>
-                          <MenuItem value="%23e66767">
-                            <FiberManualRecordIcon
-                              className={classes.icon2}
-                              style={{ color: "#e66767" }}
-                            />
-                            <Typography
-                              variant="body2"
-                              component="span"
-                              className={classes.categoryContent}
+                          <Grid
+                            container
+                            direction="row"
+                            justify="space-between"
+                            alignItems="baseline"
                             >
-                              Red
-                            </Typography>
-                          </MenuItem>
-                          <MenuItem value="%231abc9c">
-                            <FiberManualRecordIcon
-                              className={classes.icon2}
-                              style={{ color: "#1abc9c" }}
-                            />
-                            <Typography
-                              variant="body2"
-                              component="span"
-                              className={classes.categoryContent}
-                            >
-                              Green
-                            </Typography>
-                          </MenuItem>
-                          <MenuItem value="%23778beb">
-                            <FiberManualRecordIcon
-                              className={classes.icon2}
-                              style={{ color: "#778beb" }}
-                            />
-                            <Typography
-                              variant="body2"
-                              component="span"
-                              className={classes.categoryContent}
-                            >
-                              Blue
-                            </Typography>
-                          </MenuItem>
-                          <MenuItem value="%23a4b0be">
-                            <FiberManualRecordIcon
-                              className={classes.icon2}
-                              style={{ color: "#a4b0be" }}
-                            />
-                            <Typography
-                              variant="body2"
-                              component="span"
-                              className={classes.categoryContent}
-                            >
-                              Grey
-                            </Typography>
-                          </MenuItem>
-                          <MenuItem value="%232f3542">
-                            <FiberManualRecordIcon
-                              className={classes.icon2}
-                              style={{ color: "#2f3542" }}
-                            />
-                            <Typography
-                              variant="body2"
-                              component="span"
-                              className={classes.categoryContent}
-                            >
-                              Dark
-                            </Typography>
-                          </MenuItem>
-                          <MenuItem value="%23f8a5c2">
-                            <FiberManualRecordIcon
-                              className={classes.icon2}
-                              style={{ color: "#f8a5c2" }}
-                            />
-                            <Typography
-                              variant="body2"
-                              component="span"
-                              className={classes.categoryContent}
-                            >
-                              Pink
-                            </Typography>
-                          </MenuItem>
-                        </Select>
-                      </FormControl>
-                    </Grid>
-                    <Grid item xs={12} style={{marginTop: 24}}>
-                      <Button
-                        variant="contained"
-                        type="submit"
-                        disableElevation
-                        className={`btn-grad ${classes.submit}`}
+                            <Grid item xs>
+                              <FiberManualRecordIcon
+                                className={classes.icon}
+                                style={{ color: `${item.color}` }}
+                                />
+                              <Typography
+                                variant="body2"
+                                component="span"
+                                className={classes.categoryContent}
+                                >
+                                {item.categoryName}
+                              </Typography>
+                            </Grid>
+                            <Grid item xs={1}>
+                              <IconButton
+                                style={{ padding: 4 }}
+                                onClick={() => {
+                                  deleteCategory(item.category_id);
+                                }}
+                                className={classes.iconButton}
+                                >
+                                <CloseIcon className={classes.closeIcon} />
+                              </IconButton>
+                            </Grid>
+                          </Grid>
+                        </ListItem>
+                      );
+                    })
+                    ) : ( <div className={classes.categoryBtns}>Loading</div> )}
+                  </List>
+              </Grid>
+              <Grid item xs={12}>
+                <ListItem
+                  className={classes.addCategroy}
+                  button
+                  onClick={handleOpen}
+                  disableTouchRipple
+                >
+                  <Grid
+                    container
+                    direction="row"
+                    justify="space-between"
+                    alignItems="baseline"
+                  >
+                    <Grid item xs>
+                      <AddCircleIcon className={classes.icon} />
+                      <Typography
+                        variant="body2"
+                        component="span"
+                        className={classes.categoryContent}
                       >
-                        Add
-                      </Button>
+                        Add New
+                      </Typography>
                     </Grid>
                   </Grid>
-                </form>
-              </div>
-            </Modal>
+                </ListItem>
+              </Grid>
+              <Modal
+                className={classes.modal}
+                open={open}
+                onClose={handleClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                  timeout: 500,
+                }}
+              >
+                <div className={classes.paper}>
+                  <Typography variant="h5" component="div">
+                    <Box fontWeight="300">Add New Category</Box>
+                  </Typography>
+                  <form
+                    className={classes.form}
+                    onSubmit={handleSubmit(onSubmit)}
+                  >
+                    <Grid container alignItems="center">
+                      <Grid item xs={12}>
+                        <input
+                          name="content"
+                          ref={register({ required: true })}
+                          className={classes.inputCard}
+                          placeholder="New Category"
+                        />
+                        {errors.username && (
+                          <Typography
+                            variant="caption"
+                            component="p"
+                            color="error"
+                            style={{ marginBottom: "4px" }}
+                          >
+                            This field is required
+                          </Typography>
+                        )}
+                        <FormControl className={classes.formControl} name="color">
+                          <InputLabel>Add Color</InputLabel>
+                          <Select value={color} onChange={handleChange}>
+                            <MenuItem value="%23e66767">
+                              <FiberManualRecordIcon
+                                className={classes.icon2}
+                                style={{ color: "#e66767" }}
+                              />
+                              <Typography
+                                variant="body2"
+                                component="span"
+                                className={classes.categoryContent}
+                              >
+                                Red
+                              </Typography>
+                            </MenuItem>
+                            <MenuItem value="%231abc9c">
+                              <FiberManualRecordIcon
+                                className={classes.icon2}
+                                style={{ color: "#1abc9c" }}
+                              />
+                              <Typography
+                                variant="body2"
+                                component="span"
+                                className={classes.categoryContent}
+                              >
+                                Green
+                              </Typography>
+                            </MenuItem>
+                            <MenuItem value="%23778beb">
+                              <FiberManualRecordIcon
+                                className={classes.icon2}
+                                style={{ color: "#778beb" }}
+                              />
+                              <Typography
+                                variant="body2"
+                                component="span"
+                                className={classes.categoryContent}
+                              >
+                                Blue
+                              </Typography>
+                            </MenuItem>
+                            <MenuItem value="%23a4b0be">
+                              <FiberManualRecordIcon
+                                className={classes.icon2}
+                                style={{ color: "#a4b0be" }}
+                              />
+                              <Typography
+                                variant="body2"
+                                component="span"
+                                className={classes.categoryContent}
+                              >
+                                Grey
+                              </Typography>
+                            </MenuItem>
+                            <MenuItem value="%232f3542">
+                              <FiberManualRecordIcon
+                                className={classes.icon2}
+                                style={{ color: "#2f3542" }}
+                              />
+                              <Typography
+                                variant="body2"
+                                component="span"
+                                className={classes.categoryContent}
+                              >
+                                Dark
+                              </Typography>
+                            </MenuItem>
+                            <MenuItem value="%23f8a5c2">
+                              <FiberManualRecordIcon
+                                className={classes.icon2}
+                                style={{ color: "#f8a5c2" }}
+                              />
+                              <Typography
+                                variant="body2"
+                                component="span"
+                                className={classes.categoryContent}
+                              >
+                                Pink
+                              </Typography>
+                            </MenuItem>
+                          </Select>
+                        </FormControl>
+                      </Grid>
+                      <Grid item xs={12} style={{marginTop: 24}}>
+                        <Button
+                          variant="contained"
+                          type="submit"
+                          disableElevation
+                          className={`btn-grad ${classes.submit}`}
+                        >
+                          Add
+                        </Button>
+                      </Grid>
+                    </Grid>
+                  </form>
+                </div>
+              </Modal>
+            </Grid>
           </Grid>
-        </Grid>
-        <Grid item xs={9}>
-          {categoryArr ? (
-            categoryArr.map((item, index) => {
-              return (
-                <TabPanel value={value} index={index} key={item.category_id}>
-                  <TaskList cid={item.category_id} fetchStatus={fetchStatus}/>
-                </TabPanel>
-              );
-            })
-          ) : (
-            <div className={classes.categoryBtns}>Loading</div>
-          )}
-        </Grid>
+          <Grid item xs={9}>
+            {categoryArr.length ? (
+              categoryArr.map((item, index) => {
+                return (
+                  <TabPanel value={value} index={index} key={item.category_id}>
+                    <TaskList cid={item.category_id} fetchStatus={fetchStatus}/>
+                  </TabPanel>
+                );
+              })
+            ) : (
+              <div className={classes.categoryBtns}>Loading</div>
+              )}
+          </Grid>
       </Grid>
       </FetchStatusContext.Provider>
     </div>

@@ -23,10 +23,14 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   content: {
-    height: 18,
+    // height: 18,
+    position: "relative"
   },
   deletebtn: {
-    marginRight: theme.spacing(2),
+    position: "absolute",
+    top: 2,
+    right: 6,
+    // marginRight: theme.spacing(2),
   },
 }));
 
@@ -47,8 +51,9 @@ export default function TaskItem(props) {
 
   return (
     <React.Fragment>
-      <div className={classes.root} style={{ backgroundColor: "#F4F6FF" }}>
+      <div className={classes.root} style={{ backgroundColor: "#F4F6FF", padding: "0 8px" }}>
         <Grid
+          className={classes.content}
           container
           direction="row"
           justify="space-between"
@@ -60,17 +65,15 @@ export default function TaskItem(props) {
             </Grid>
             <Grid item xs>
               {status == true ? (
-                <Typography variant="body2" component="p" style={{textDecoration: 'line-through', wordWrap: "break-word",color:"lightgrey"}}>{description}</Typography>
+                <Typography variant="body2" component="p" style={{textDecoration: 'line-through', wordWrap: "break-word", color:"lightgrey" }}>{description}</Typography>
               ) : (
                 <Typography variant="body2" component="p"style={{ wordWrap: "break-word"}} >{description}</Typography>
               )}
             </Grid>
           </Grid>
-          <Grid item xs={1} className={classes.deletebtn}>
-            <IconButton onClick={deleteTask}>
-              <ClearIcon style={{ color: "#909297E6", fontSize: "12px"}}/>
-            </IconButton>
-          </Grid>
+          <IconButton className={classes.deletebtn} onClick={deleteTask}>
+            <ClearIcon style={{ color: "#909297E6", fontSize: "12px"}}/>
+          </IconButton>
         </Grid>
       </div>
     </React.Fragment>
