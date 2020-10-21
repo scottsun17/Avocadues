@@ -67,7 +67,7 @@ export default function TaskItem(props) {
             </Grid>
           </Grid>
           <Grid item xs={1} className={classes.deletebtn}>
-            <IconButton onClick={deleteTask}>
+            <IconButton onClick={deleteTask} >
               <ClearIcon style={{ color: "#909297E6", fontSize: "12px"}}/>
             </IconButton>
           </Grid>

@@ -16,7 +16,6 @@ import {
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import { grey } from "@material-ui/core/colors";
-
 // url axios
 import axios from "axios";
 import { URL } from "../../config";
@@ -31,6 +30,7 @@ import "../../css/App.css";
 import { useAlert } from "react-alert";
 import { useContext } from "react";
 import { FetchStatusContext } from "./categoryList";
+import img from "../../assets/imgs/loading.png";
 
 const useStyles = makeStyles((theme) => ({
   taskList: {
@@ -73,6 +73,7 @@ const useStyles = makeStyles((theme) => ({
 
   },
   paper: {
+    display: 'flex',
     width: 400,
     height: 300,
     backgroundColor: theme.palette.background.paper,
@@ -99,6 +100,12 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 6),
     flexGrow: 1,
   },
+  taskcontent:{
+    height:"300px"
+
+  }
+  
+
 }));
 
 const MyTabs = withStyles((theme) => ({
@@ -330,7 +337,12 @@ export default function TaskList(props) {
                   );
                 })
               ) : (
-                <div>Create new todos</div>
+                <Grid className={classes.taskcontent}  container direction="column" justify="center" alignItems="center">
+                  <Grid item>
+                  <img width="50px" src={img} alt="Loadinglogo"/>
+                  <Typography component="h1"> Nothing to do </Typography>
+                  </Grid>
+                </Grid>
               )
             ) : (
               <div>Loading...</div>
@@ -349,7 +361,14 @@ export default function TaskList(props) {
                   );
                 })
               ) : (
-                <div>Create new todos</div>
+                <Grid className={classes.taskcontent} container direction="column" justify="center" alignItems="center">
+                  <Grid item xs={1}>  
+                  <img width="50px" src={img} alt="Loadinglogo"/>
+                  </Grid>
+                 <Grid item xs={1}>
+                <Typography component="h1"> Create new to do  </Typography>
+                 </Grid>
+              </Grid>
               )
             ) : (
               <div>Loading...</div>
@@ -368,7 +387,12 @@ export default function TaskList(props) {
                   );
                 })
               ) : (
-                <div>All Done, Great!</div>
+                <Grid className={classes.taskcontent}  container ="column" justify="center" alignItems="center">
+                  <Grid item>
+                  <img width="50px" src={img} alt="Loadinglogo"/>
+                  <Typography component="h1"> All Done, Great!</Typography>
+                  </Grid>
+                </Grid>
               )
             ) : (
               <div>Loading...</div>

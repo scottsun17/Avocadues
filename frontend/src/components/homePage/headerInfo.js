@@ -70,10 +70,6 @@ const HeaderInfo = () => {
           alignItems="flex-start"
         >
           <Grid item className={classes.title} xs={4}>
-<<<<<<< HEAD
-=======
-          
->>>>>>> 62c3a8bbc5ffb1ed62da75491d59736255a1a7ed
               <motion.div 
                 initial={{ scale: 0 }}
                 animate={{  scale: 1 }}
@@ -91,7 +87,7 @@ const HeaderInfo = () => {
                 variant="body1"
                 style={{ marginRight: 8 }}
               >
-                {user.displayName}
+               Hello, {user.displayName}
               </Typography>
             ) : (
               <Typography component="span" variant="body1">
