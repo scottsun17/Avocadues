@@ -19,6 +19,6 @@ public interface CategoryMapper {
     @Insert("insert into category(category_id, category_name, color, uid) values(#{category_id}, #{category_name}, #{color}, #{uid})")
     public void addCategory(Category category);
 
-    @Delete("delete from category where category_id = #{category_id}")
+    @Delete("delete * from category where category_id = #{category_id}")
     public void deleteCategoryByCategoryId(Category category);
 }
