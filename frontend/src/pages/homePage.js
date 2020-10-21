@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     borderRadius: theme.spacing(2),
     margin: theme.spacing(0, 12),
+    height: '72vh',
+    minHeight: 580,
+    minWidth: 800,
   },
   title: {
     marginTop: theme.spacing(2),

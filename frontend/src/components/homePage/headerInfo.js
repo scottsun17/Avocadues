@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3, 6, 0, 6),
   },
   title: {
-    // paddingTop: theme.spacing(2),
     color: "#2F4851",
     letterSpacing: "-1.5px",
   },

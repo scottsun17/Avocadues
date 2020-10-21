@@ -35,7 +35,7 @@ import img from "../../assets/imgs/loading.png";
 const useStyles = makeStyles((theme) => ({
   taskList: {
     width: "100%",
-    height: "60vh",
+    minHeight: "60vh",
     borderRadius: theme.spacing(4),
     padding: theme.spacing(4, 3, 1, 3),
   },
@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     display: 'flex',
     width: 400,
-    height: 300,
+    minHeight: '60vh',
     backgroundColor: theme.palette.background.paper,
     borderRadius: theme.spacing(2),
     padding: theme.spacing(4),
@@ -309,7 +309,6 @@ export default function TaskList(props) {
                     </Grid>
                     <Grid container alignItems="center" item xs={12} style={{ marginTop: 24, marginBottom: 24}}>
                       <Button
-                      
                         variant="contained"
                         fullWidth
                         type="submit"
