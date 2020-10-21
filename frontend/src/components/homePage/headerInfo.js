@@ -70,7 +70,6 @@ const HeaderInfo = () => {
           alignItems="flex-start"
         >
           <Grid item className={classes.title} xs={4}>
-<<<<<<< HEAD
           
               <motion.div 
                 initial={{ scale: 0 }}
@@ -81,13 +80,6 @@ const HeaderInfo = () => {
                  <img width="200px" src={img} alt="logo" />  
             </motion.div>
          
-=======
-            <Typography variant="h4" component="div">
-            <div>
-              <img width="200px" src={img} alt="logo" />
-            </div>
-            </Typography>
->>>>>>> d633968af474a069d7425e3757671349966987e2
           </Grid>
           <Grid item className={classes.userInfo} xs={3}>
             {user.displayName != null ? (

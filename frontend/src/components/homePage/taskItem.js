@@ -60,9 +60,9 @@ export default function TaskItem(props) {
             </Grid>
             <Grid item xs>
               {status == true ? (
-                <Typography variant="body2" component="p" style={{textDecoration: 'line-through'}}>{description}</Typography>
+                <Typography variant="body2" component="p" style={{textDecoration: 'line-through', wordWrap: "break-word",color:"lightgrey"}}>{description}</Typography>
               ) : (
-                <Typography variant="body2" component="p">{description}</Typography>
+                <Typography variant="body2" component="p"style={{ wordWrap: "break-word"}} >{description}</Typography>
               )}
             </Grid>
           </Grid>
