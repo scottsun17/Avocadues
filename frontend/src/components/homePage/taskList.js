@@ -51,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
   form: {
     width: "100%", // Fix IE 11 issue.
+    height:"30%",
     marginTop: theme.spacing(3),
   },
   list: {
@@ -66,9 +67,14 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
+  Button:{
+    alignItems: "center",
+    justifyContent: "center",
+
+  },
   paper: {
     width: 400,
-    height: 220,
+    height: 300,
     backgroundColor: theme.palette.background.paper,
     borderRadius: theme.spacing(2),
     padding: theme.spacing(4),
@@ -269,7 +275,7 @@ export default function TaskList(props) {
             >
               <div className={classes.paper}>
                 <Typography variant="h5" component="div">
-                  <Box fontWeight="300">Add New Task</Box>
+                  <Box fontWeight="100">Add New Task</Box>
                 </Typography>
                 <form
                   className={classes.form}
@@ -294,8 +300,9 @@ export default function TaskList(props) {
                         </Typography>
                       )}
                     </Grid>
-                    <Grid item xs={12} style={{ marginTop: 24 }}>
+                    <Grid container alignItems="center" item xs={12} style={{ marginTop: 24, marginBottom: 24}}>
                       <Button
+                      
                         variant="contained"
                         fullWidth
                         type="submit"
