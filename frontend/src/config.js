@@ -1,1 +1,1 @@
-export const URL = "https://ec2-18-222-197-52.us-east-2.compute.amazonaws.com:8080/";
+export const URL = "https://cors-anywhere.herokuapp.com/http://ec2-18-217-91-161.us-east-2.compute.amazonaws.com:8080/";
