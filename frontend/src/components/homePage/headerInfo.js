@@ -29,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: "-1.5px",
   },
   userInfo: {
-    paddingTop: 16,
-    height: 42,
+    paddingTop: 11,
+    height: 46,
   },
 }));
 
@@ -79,20 +79,23 @@ const HeaderInfo = () => {
             </motion.div>
          
           </Grid>
-          <Grid item className={classes.userInfo} xs={3}>
+          <Grid item xs className={classes.userInfo}>
             {user.displayName != null ? (
               <Typography
-                component="span"
+                align="right"
+                component="p"
                 variant="body1"
                 style={{ marginRight: 8 }}
               >
-               Hello, {user.displayName}
+                Hello, {user.displayName}
               </Typography>
             ) : (
-              <Typography component="span" variant="body1">
-                unKnown
-              </Typography>
-            )}
+                <Typography component="span" variant="body1">
+                  unKnown
+                </Typography>
+              )}
+          </Grid>
+          <Grid item xs="auto" align="right">
             <IconButton style={{ marginRight: "6px" }}>
               <AccountCircleIcon />
             </IconButton>

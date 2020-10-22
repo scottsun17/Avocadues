@@ -336,10 +336,10 @@ export default function TaskList(props) {
                   );
                 })
               ) : (
-                <Grid className={classes.taskcontent}  container direction="column" justify="center" alignItems="center">
-                  <Grid item>
-                  <img width="50px" src={img} alt="Loadinglogo"/>
-                  <Typography component="h1"> Nothing to do </Typography>
+                <Grid className={classes.taskcontent} container justify="center" alignItems="center">
+                  <Grid item xs align="center">
+                    <img width="50px" src={img} alt="Loadinglogo"/>
+                    <Typography component="p" variant="body1" align="center" style={{ marginTop: "6px" }}> Nothing to do </Typography>
                   </Grid>
                 </Grid>
               )
@@ -360,14 +360,12 @@ export default function TaskList(props) {
                   );
                 })
               ) : (
-                <Grid className={classes.taskcontent} container direction="column" justify="center" alignItems="center">
-                  <Grid item xs={1}>  
-                  <img width="50px" src={img} alt="Loadinglogo"/>
+                <Grid className={classes.taskcontent} container justify="center" alignItems="center">
+                  <Grid item xs align="center">
+                    <img width="50px" src={img} alt="Loadinglogo" />
+                    <Typography component="p" variant="body1" align="center" style={{marginTop: "6px"}}> Create new to do </Typography>
                   </Grid>
-                 <Grid item xs={1}>
-                <Typography component="h1"> Create new to do  </Typography>
-                 </Grid>
-              </Grid>
+                </Grid>
               )
             ) : (
               <div>Loading...</div>
@@ -386,10 +384,10 @@ export default function TaskList(props) {
                   );
                 })
               ) : (
-                <Grid className={classes.taskcontent}  container ="column" justify="center" alignItems="center">
-                  <Grid item>
-                  <img width="50px" src={img} alt="Loadinglogo"/>
-                  <Typography component="h1"> All Done, Great!</Typography>
+                <Grid className={classes.taskcontent} container justify="center" alignItems="center">
+                  <Grid item xs align="center">
+                    <img width="50px" src={img} alt="Loadinglogo"/>
+                    <Typography component="p" variant="body1" align="center" style={{ marginTop: "6px" }}> All Done, Great! </Typography>
                   </Grid>
                 </Grid>
               )

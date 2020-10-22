@@ -1,21 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import errorPage from './pages/errorPage';
 import landingPage from './pages/landingPage';
 import newPwdPage from './pages/newPwdPage';
 import signupPage from './pages/signupPage';
 import homePage from './pages/homePage';
-import firebase from './components/firebase';
 
 
 export default function App() {
-  const [firebaseInitialized, setFirebaseInitialized] = useState(false)
-
-  useEffect(()=>{
-    firebase.isInitialized().then(val => {
-      setFirebaseInitialized(val)
-    })
-  })
   return (
     <Router>
       <Switch>
