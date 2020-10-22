@@ -83,7 +83,9 @@ SpringBoot is a  tool set developed by Pivotal. It consolidates Spring, Spring M
    mvn clean package # generate jar package
    java -jar .\projectname.jar
    
-   nohup java -jar ./todolist-0.0.6.jar > todolist006.txt &
+   nohup java -jar ./todolist-0.0.9.jar > todolist009.txt &
+   
+   https://ec2-18-222-197-52.us-east-2.compute.amazonaws.com:8080/getAllUsers
    ```
 
 

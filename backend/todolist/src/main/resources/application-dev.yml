@@ -2,6 +2,12 @@ server:
     port: 8080
     servlet:
         context-path: /
+    ssl:
+        key-store: classpath:keystore.p12
+        key-store-password: pk87654321
+        keyStoreType: PKCS12
+        keyAlias: tomcat
+        
 
 
 
