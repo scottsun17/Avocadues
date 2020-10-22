@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 // form
 import { useForm } from "react-hook-form";
@@ -16,7 +16,6 @@ import {
   Typography,
   Container,
   CssBaseline,
-  Snackbar,
 } from "@material-ui/core";
 import { grey } from "@material-ui/core/colors";
 
@@ -31,40 +30,19 @@ import "../../css/App.css";
 
 // icons
 import FacebookIcon from "@material-ui/icons/Facebook";
-import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import GitHubIcon from "@material-ui/icons/GitHub";
-import googleIcon from "../../assets/imgs/icons/Google.png";
 import img from "../../assets/imgs/logo.png";
-
 // router
-import { Link, useHistory,withRouter } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 //firebaseAuth
 import firebase from "firebase";
 import firebaseAuth from "../firebase";
 
-// axios
-import axios from "axios";
-import { URL } from "../../config";
-
-const provider = new firebase.auth.TwitterAuthProvider();
-
-const twitterLogin = () => {
-    
-    firebase.auth().signInWithPopup(provider).then(function(result) {
-        var token = result.credential.accessToken;
-        var secret = result.credential.secret;
-
-        var user = result.user;
-    }).catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-
-        var email = error.email;
-        var credential = error.credential;
-    });
-}
-
+// redux
+import { useDispatch } from "react-redux";
+import { auth, login } from "../../redux/actions/user_actions";
+import useLocalStorage from "../useLocalStorage";
 
 function Copyright() {
   return (
@@ -122,6 +100,9 @@ export default function SignIn(props) {
   const classes = useStyles();
   const hist = useHistory();
   const alert = useAlert();
+  const dispatch = useDispatch();
+  const [user, setUser] = useLocalStorage("user", null);
+
   const { register, handleSubmit, watch, errors } = useForm({
     defaultValues: {
       email: "",
@@ -130,18 +111,14 @@ export default function SignIn(props) {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
     try {
-         firebaseAuth.login(data.email, data.password)
+      dispatch(login(data.email, data.password))
         .then((res) => {
-          console.log(res.user);
-          if (res.user.uid !== undefined) {
+          console.log(res.payload.user);
+          if (res.payload.user.uid) {
             alert.success("Log in successfully!");
-            // postUid(res.user.uid);
-            hist.push({
-              pathname: "/home",
-              query: { user: res },
-            });
+            setUser(res.payload.user);
+            hist.push("/home");
           }
         })
         .catch((err) => {
@@ -162,10 +139,8 @@ export default function SignIn(props) {
       .then(function (result) {
         // This gives you a GitHub Access Token. You can use it to access the GitHub API.
         const token = result.credential.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-        console.log(user);
         alert.success("Log in successfully!");
+        setUser(result.user);
         hist.push({
           pathname: "/home",
           query: { user: user },
@@ -173,13 +148,13 @@ export default function SignIn(props) {
         // ...
       })
       .catch(function (error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebaseAuth.auth.AuthCredential type that was used.
-        var credential = error.credential;
+        // // Handle Errors here.
+        // var errorCode = error.code;
+        // var errorMessage = error.message;
+        // // The email of the user's account used.
+        // var email = error.email;
+        // // The firebaseAuth.auth.AuthCredential type that was used.
+        // var credential = error.credential;
         alert.error(error.message);
       });
   };
@@ -190,12 +165,8 @@ export default function SignIn(props) {
       .auth()
       .signInWithPopup(provider)
       .then(function (result) {
-        // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-        const token = result.credential.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-        console.log(user);
         alert.success("Log in successfully!");
+        setUser(result.user);
         hist.push({
           pathname: "/home",
           query: { user: user },
@@ -204,12 +175,12 @@ export default function SignIn(props) {
       })
       .catch(function (error) {
         // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebaseAuth.auth.AuthCredential type that was used.
-        var credential = error.credential;
+        // var errorCode = error.code;
+        // var errorMessage = error.message;
+        // // The email of the user's account used.
+        // var email = error.email;
+        // // The firebaseAuth.auth.AuthCredential type that was used.
+        // var credential = error.credential;
         alert.error(error.message);
       });
   };

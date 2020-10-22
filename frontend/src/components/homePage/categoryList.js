@@ -331,7 +331,7 @@ const CategoryList = (props) => {
                           className={classes.inputCard}
                           placeholder="New Category"
                         />
-                        {errors.username && (
+                        {errors.content && (
                           <Typography
                             variant="caption"
                             component="p"

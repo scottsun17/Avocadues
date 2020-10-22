@@ -7,12 +7,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Paper, Container, CssBaseline } from "@material-ui/core";
 
 import CategoryList from "../components/homePage/categoryList";
+import useLocalStorage from "../components/useLocalStorage";
+// import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     borderRadius: theme.spacing(2),
     margin: theme.spacing(0, 12),
-    height: '72vh',
+    height: "72vh",
     minHeight: 580,
     minWidth: 800,
   },
@@ -28,7 +30,9 @@ export const UserContext = React.createContext();
 
 const Home = (props) => {
   const classes = useStyles();
-  const user = props.user;
+  const [user, setUser] = useLocalStorage("user", null);
+  // const user = useSelector((state) => state.user.userData);
+  console.log(user)
 
   return (
     <React.Fragment>
@@ -45,12 +49,10 @@ const Home = (props) => {
   );
 };
 
-const homePage = (props) => {
-  const user = props.location.query.user.user;
-
+const homePage = () => {
   return (
     <div className="App">
-      {user !== undefined ? <Home user={user} /> : <div> loading...</div>}
+      <Home />
     </div>
   );
 };

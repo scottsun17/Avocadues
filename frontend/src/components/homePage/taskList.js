@@ -49,17 +49,13 @@ const useStyles = makeStyles((theme) => ({
   panel: {
     padding: theme.spacing(4),
   },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    height:"30%",
-    marginTop: theme.spacing(3),
-  },
+
   list: {
     overflow: "auto",
     maxHeight: "35vh",
   },
   header: {
-    paddingRight: theme.spacing(4),
+    paddingRight: theme.spacing(2),
   },
   // modal
   modal: {
@@ -67,27 +63,25 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
-  Button:{
-    alignItems: "center",
-    justifyContent: "center",
-
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
   },
   paper: {
-    display: 'flex',
     width: 400,
-    minHeight: '60vh',
+    minHeight: "30vh",
     backgroundColor: theme.palette.background.paper,
     borderRadius: theme.spacing(2),
     padding: theme.spacing(4),
     outline: 0,
   },
   inputCard: {
+    height: 48,
     border: "0px solid",
     borderRadius: "8px",
     backgroundColor: grey[200],
     alignItems: "center",
     width: "100%",
-    height: "3rem",
     marginBottom: theme.spacing(1),
     padding: theme.spacing(1.5),
     outline: "none",
@@ -100,12 +94,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 6),
     flexGrow: 1,
   },
-  taskcontent:{
-    height:"300px"
-
-  }
-  
-
+  taskcontent: {
+    height: "300px",
+  },
 }));
 
 const MyTabs = withStyles((theme) => ({
@@ -251,16 +242,7 @@ export default function TaskList(props) {
             </MyTabs>
           </Grid>
           <Grid item>
-            <motion.div
-              whileHover={{
-                rotate: [0, 0, 360, 360, 0],
-              }}
-              transition={{
-                duration: 1,
-                ease: "easeInOut",
-                times: [0, 0.2, 0.5, 0.8, 1],
-              }}
-            >
+            <motion.div whileHover={{ scale: 1.1 }}>
               <ButtonBase
                 variant="contained"
                 color="primary"
@@ -282,7 +264,7 @@ export default function TaskList(props) {
             >
               <div className={classes.paper}>
                 <Typography variant="h5" component="div">
-                  <Box fontWeight="100">Add New Task</Box>
+                  <Box fontWeight="300">Add New Task</Box>
                 </Typography>
                 <form
                   className={classes.form}
@@ -296,7 +278,7 @@ export default function TaskList(props) {
                         className={classes.inputCard}
                         placeholder="Task"
                       />
-                      {errors.username && (
+                      {errors.content && (
                         <Typography
                           variant="caption"
                           component="p"
@@ -307,7 +289,11 @@ export default function TaskList(props) {
                         </Typography>
                       )}
                     </Grid>
-                    <Grid container alignItems="center" item xs={12} style={{ marginTop: 24, marginBottom: 24}}>
+                    <Grid
+                      item
+                      xs={12}
+                      style={{ marginTop: 24 }}
+                    >
                       <Button
                         variant="contained"
                         fullWidth
@@ -336,10 +322,23 @@ export default function TaskList(props) {
                   );
                 })
               ) : (
-                <Grid className={classes.taskcontent} container justify="center" alignItems="center">
+                <Grid
+                  className={classes.taskcontent}
+                  container
+                  justify="center"
+                  alignItems="center"
+                >
                   <Grid item xs align="center">
-                    <img width="50px" src={img} alt="Loadinglogo"/>
-                    <Typography component="p" variant="body1" align="center" style={{ marginTop: "6px" }}> Nothing to do </Typography>
+                    <img width="50px" src={img} alt="Loadinglogo" />
+                    <Typography
+                      component="p"
+                      variant="body1"
+                      align="center"
+                      style={{ marginTop: "6px" }}
+                    >
+                      {" "}
+                      Nothing to do{" "}
+                    </Typography>
                   </Grid>
                 </Grid>
               )
@@ -360,10 +359,23 @@ export default function TaskList(props) {
                   );
                 })
               ) : (
-                <Grid className={classes.taskcontent} container justify="center" alignItems="center">
+                <Grid
+                  className={classes.taskcontent}
+                  container
+                  justify="center"
+                  alignItems="center"
+                >
                   <Grid item xs align="center">
                     <img width="50px" src={img} alt="Loadinglogo" />
-                    <Typography component="p" variant="body1" align="center" style={{marginTop: "6px"}}> Create new to do </Typography>
+                    <Typography
+                      component="p"
+                      variant="body1"
+                      align="center"
+                      style={{ marginTop: "6px" }}
+                    >
+                      {" "}
+                      Create new to do{" "}
+                    </Typography>
                   </Grid>
                 </Grid>
               )
@@ -379,15 +391,28 @@ export default function TaskList(props) {
                 done.map((item) => {
                   return (
                     <ListItem key={item.taskId}>
-                      <TaskItem taskInfo={item} fetchData={fetchTasks}/>
+                      <TaskItem taskInfo={item} fetchData={fetchTasks} />
                     </ListItem>
                   );
                 })
               ) : (
-                <Grid className={classes.taskcontent} container justify="center" alignItems="center">
+                <Grid
+                  className={classes.taskcontent}
+                  container
+                  justify="center"
+                  alignItems="center"
+                >
                   <Grid item xs align="center">
-                    <img width="50px" src={img} alt="Loadinglogo"/>
-                    <Typography component="p" variant="body1" align="center" style={{ marginTop: "6px" }}> All Done, Great! </Typography>
+                    <img width="50px" src={img} alt="Loadinglogo" />
+                    <Typography
+                      component="p"
+                      variant="body1"
+                      align="center"
+                      style={{ marginTop: "6px" }}
+                    >
+                      {" "}
+                      All Done, Great!{" "}
+                    </Typography>
                   </Grid>
                 </Grid>
               )

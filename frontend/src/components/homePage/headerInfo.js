@@ -47,8 +47,9 @@ const HeaderInfo = () => {
         .then((res) => {
           console.log(res);
           alert.success("Log out successfully!");
+          window.localStorage.clear();
           hist.push({
-            pathname: "/landingPage",
+            pathname: "/signin",
           });
         })
         .catch((err) => {
@@ -69,15 +70,14 @@ const HeaderInfo = () => {
           alignItems="flex-start"
         >
           <Grid item className={classes.title} xs={4}>
-              <motion.div 
-                initial={{ scale: 0 }}
-                animate={{  scale: 1 }}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.8 }}
-              >
-                 <img width="200px" src={img} alt="logo" />  
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.8 }}
+            >
+              <img width="200px" src={img} alt="logo" />
             </motion.div>
-         
           </Grid>
           <Grid item xs className={classes.userInfo}>
             {user.displayName != null ? (
@@ -90,10 +90,10 @@ const HeaderInfo = () => {
                 Hello, {user.displayName}
               </Typography>
             ) : (
-                <Typography component="span" variant="body1">
-                  unKnown
-                </Typography>
-              )}
+              <Typography component="span" variant="body1">
+                unKnown
+              </Typography>
+            )}
           </Grid>
           <Grid item xs="auto" align="right">
             <IconButton style={{ marginRight: "6px" }}>

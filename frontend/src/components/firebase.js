@@ -37,14 +37,6 @@ class FirebaseAuth {
     return await this.auth.sendPasswordResetEmail(email);
   }
 
- isInitialized(){
-    return new Promise(resolve => {
-      this.auth.onAuthStateChanged(resolve)
-    })
-  }
-  // getCurrentUsername(){
-  //   return this.auth.currentUser && this.auth.currentUser.displayName
-  // }
   getUid(){
     return this.auth.currentUser.uid
   }
