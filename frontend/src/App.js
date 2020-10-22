@@ -10,9 +10,9 @@ import landingPage from "./pages/landingPage";
 import newPwdPage from "./pages/newPwdPage";
 import signupPage from "./pages/signupPage";
 import homePage from "./pages/homePage";
-import { useSelector } from "react-redux";
 
 export default function App() {
+  const [localStorageStatus, setLocalStorageStatus] = React.useState(window.localStorage);
 
   return (
     <Router>
@@ -21,7 +21,7 @@ export default function App() {
         <Route exact path="/signin" component={landingPage} />
         <Route exact path="/signup" component={signupPage} />
         <Route exact path="/forgotpwd" component={newPwdPage} />
-        <Route exact path="/home" component={homePage} />
+        <Route exact path="/home" render={() => (localStorageStatus.user ? <Route exact path="/home" component={homePage} /> : <Redirect to="/404" />)} ></Route>
         <Route exact path="/404" component={errorPage} />
         <Redirect from="/*" to="/404" />
       </Switch>
