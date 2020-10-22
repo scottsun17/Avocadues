@@ -114,7 +114,6 @@ export default function SignIn(props) {
     try {
       dispatch(login(data.email, data.password))
         .then((res) => {
-          console.log(res.payload.user);
           if (res.payload.user.uid) {
             alert.success("Log in successfully!");
             setUser(res.payload.user);

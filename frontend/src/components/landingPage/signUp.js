@@ -108,7 +108,6 @@ const SignUp = () => {
   };
 
   const onSubmit = (data) => {
-    console.log(data);
     try {
       firebase
         .register(data.username, data.email, data.password)

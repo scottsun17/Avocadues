@@ -45,7 +45,6 @@ const HeaderInfo = () => {
       firebaseAuth
         .logout()
         .then((res) => {
-          console.log(res);
           alert.success("Log out successfully!");
           window.localStorage.clear();
           hist.push({

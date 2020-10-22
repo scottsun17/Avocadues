@@ -195,12 +195,10 @@ export default function TaskList(props) {
   });
 
   const onSubmit = async (data) => {
-    console.log(data);
     setTaskDescription(data.content);
-    const res = await axios.post(
+    await axios.post(
       URL + "addNewTask?description=" + data.content + "&category_id=" + cid
     );
-    console.log(res);
     fetchTasks();
     fetchStatus();
     alert.success("Task added!");
@@ -289,11 +287,7 @@ export default function TaskList(props) {
                         </Typography>
                       )}
                     </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      style={{ marginTop: 24 }}
-                    >
+                    <Grid item xs={12} style={{ marginTop: 24 }}>
                       <Button
                         variant="contained"
                         fullWidth
@@ -336,8 +330,7 @@ export default function TaskList(props) {
                       align="center"
                       style={{ marginTop: "6px" }}
                     >
-                      {" "}
-                      Nothing to do{" "}
+                      Nothing To Do!
                     </Typography>
                   </Grid>
                 </Grid>
@@ -373,8 +366,7 @@ export default function TaskList(props) {
                       align="center"
                       style={{ marginTop: "6px" }}
                     >
-                      {" "}
-                      Create new to do{" "}
+                      Create A New To-Do!
                     </Typography>
                   </Grid>
                 </Grid>
@@ -410,8 +402,7 @@ export default function TaskList(props) {
                       align="center"
                       style={{ marginTop: "6px" }}
                     >
-                      {" "}
-                      All Done, Great!{" "}
+                      All Done, Great!
                     </Typography>
                   </Grid>
                 </Grid>

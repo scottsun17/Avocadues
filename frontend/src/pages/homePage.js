@@ -31,8 +31,6 @@ export const UserContext = React.createContext();
 const Home = (props) => {
   const classes = useStyles();
   const [user, setUser] = useLocalStorage("user", null);
-  // const user = useSelector((state) => state.user.userData);
-  console.log(user)
 
   return (
     <React.Fragment>

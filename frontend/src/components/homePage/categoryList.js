@@ -37,10 +37,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     padding: theme.spacing(2, 6),
-    height: "62vh"
+    height: "62vh",
   },
   userStatus: {
-    minHeight: '20vh',
+    minHeight: "20vh",
     padding: theme.spacing(4, 1),
     marginBottom: theme.spacing(1),
   },
@@ -56,9 +56,9 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.spacing(1),
     marginBottom: 8,
     "&:focus": {
-      color: '#ffffff',
-      backgroundColor: '#AED580'
-    }
+      color: "#ffffff",
+      backgroundColor: "#AED580",
+    },
   },
   addCategroy: {
     textTransform: "none",
@@ -162,17 +162,16 @@ const CategoryList = (props) => {
   const fetchCategories = async () => {
     const res = await axios.post(URL + "getCategoryByUid?uid=" + user.uid);
     setCategories(res.data);
-    console.log(res.data);
   };
 
   const fetchStatus = async () => {
-    const res = await axios.post(URL + "getTaskStatusCountByUserId?uid=" + user.uid);
+    const res = await axios.post(
+      URL + "getTaskStatusCountByUserId?uid=" + user.uid
+    );
     setUserStatus(res.data);
-    console.log(res.data);
-  }
+  };
 
   const onSubmit = async (data) => {
-    console.log(data);
     setCategroyName(data.content);
     const res = await axios.post(
       URL +
@@ -219,15 +218,16 @@ const CategoryList = (props) => {
           <Grid item xs={3}>
             <div className={classes.userStatus}>
               <Typography variant="h5" component="div">
-                <Box fontWeight="600">
-                  Today is {date}
-                </Box>
+                <Box fontWeight="600">Today is {date}</Box>
               </Typography>
-              {userStatus ?
+              {userStatus ? (
                 <Typography variant="body1" component="p">
-                  Today you have {userStatus.unfinshedCount} to dos, and {userStatus.finishedCount} are done.
-                </Typography> : <div>loading...</div>
-              }
+                  Today you have {userStatus.unfinshedCount} to dos, and{" "}
+                  {userStatus.finishedCount} are done.
+                </Typography>
+              ) : (
+                <div>loading...</div>
+              )}
             </div>
             <Grid container>
               <Grid item xs={12}>
@@ -247,17 +247,17 @@ const CategoryList = (props) => {
                             direction="row"
                             justify="space-between"
                             alignItems="baseline"
-                            >
+                          >
                             <Grid item xs>
                               <FiberManualRecordIcon
                                 className={classes.icon}
                                 style={{ color: `${item.color}` }}
-                                />
+                              />
                               <Typography
                                 variant="body2"
                                 component="span"
                                 className={classes.categoryContent}
-                                >
+                              >
                                 {item.categoryName}
                               </Typography>
                             </Grid>
@@ -268,7 +268,7 @@ const CategoryList = (props) => {
                                   deleteCategory(item.category_id);
                                 }}
                                 className={classes.iconButton}
-                                >
+                              >
                                 <CloseIcon className={classes.closeIcon} />
                               </IconButton>
                             </Grid>
@@ -276,8 +276,10 @@ const CategoryList = (props) => {
                         </ListItem>
                       );
                     })
-                    ) : ( <div className={classes.categoryBtns}>Loading</div> )}
-                  </List>
+                  ) : (
+                    <div className={classes.categoryBtns}>Loading</div>
+                  )}
+                </List>
               </Grid>
               <Grid item xs={12}>
                 <ListItem
@@ -341,7 +343,10 @@ const CategoryList = (props) => {
                             This field is required
                           </Typography>
                         )}
-                        <FormControl className={classes.formControl} name="color">
+                        <FormControl
+                          className={classes.formControl}
+                          name="color"
+                        >
                           <InputLabel>Add Color</InputLabel>
                           <Select value={color} onChange={handleChange}>
                             <MenuItem value="%23e66767">
@@ -425,7 +430,7 @@ const CategoryList = (props) => {
                           </Select>
                         </FormControl>
                       </Grid>
-                      <Grid item xs={12} style={{marginTop: 24}}>
+                      <Grid item xs={12} style={{ marginTop: 24 }}>
                         <Button
                           variant="contained"
                           type="submit"
@@ -446,15 +451,18 @@ const CategoryList = (props) => {
               categoryArr.map((item, index) => {
                 return (
                   <TabPanel value={value} index={index} key={item.category_id}>
-                    <TaskList cid={item.category_id} fetchStatus={fetchStatus}/>
+                    <TaskList
+                      cid={item.category_id}
+                      fetchStatus={fetchStatus}
+                    />
                   </TabPanel>
                 );
               })
             ) : (
               <div className={classes.categoryBtns}>Loading</div>
-              )}
+            )}
           </Grid>
-      </Grid>
+        </Grid>
       </FetchStatusContext.Provider>
     </div>
   );
