@@ -130,59 +130,59 @@ export default function SignIn(props) {
 
   // useEffect(() => postUid(), [])
 
-  const loginWithGithub = () => {
-    const provider = new firebase.auth.GithubAuthProvider();
-    firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then(function (result) {
-        // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-        const token = result.credential.accessToken;
-        alert.success("Log in successfully!");
-        setUser(result.user);
-        hist.push({
-          pathname: "/home",
-          query: { user: user },
-        });
-        // ...
-      })
-      .catch(function (error) {
-        // // Handle Errors here.
-        // var errorCode = error.code;
-        // var errorMessage = error.message;
-        // // The email of the user's account used.
-        // var email = error.email;
-        // // The firebaseAuth.auth.AuthCredential type that was used.
-        // var credential = error.credential;
-        alert.error(error.message);
-      });
-  };
+  // const loginWithGithub = () => {
+  //   const provider = new firebase.auth.GithubAuthProvider();
+  //   firebase
+  //     .auth()
+  //     .signInWithPopup(provider)
+  //     .then(function (result) {
+  //       // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+  //       const token = result.credential.accessToken;
+  //       alert.success("Log in successfully!");
+  //       setUser(result.user);
+  //       hist.push({
+  //         pathname: "/home",
+  //         query: { user: user },
+  //       });
+  //       // ...
+  //     })
+  //     .catch(function (error) {
+  //       // // Handle Errors here.
+  //       // var errorCode = error.code;
+  //       // var errorMessage = error.message;
+  //       // // The email of the user's account used.
+  //       // var email = error.email;
+  //       // // The firebaseAuth.auth.AuthCredential type that was used.
+  //       // var credential = error.credential;
+  //       alert.error(error.message);
+  //     });
+  // };
 
-  const loginWithFacebook = () => {
-    const provider = new firebase.auth.FacebookAuthProvider();
-    firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then(function (result) {
-        alert.success("Log in successfully!");
-        setUser(result.user);
-        hist.push({
-          pathname: "/home",
-          query: { user: user },
-        });
-        // ...
-      })
-      .catch(function (error) {
-        // Handle Errors here.
-        // var errorCode = error.code;
-        // var errorMessage = error.message;
-        // // The email of the user's account used.
-        // var email = error.email;
-        // // The firebaseAuth.auth.AuthCredential type that was used.
-        // var credential = error.credential;
-        alert.error(error.message);
-      });
-  };
+  // const loginWithFacebook = () => {
+  //   const provider = new firebase.auth.FacebookAuthProvider();
+  //   firebase
+  //     .auth()
+  //     .signInWithPopup(provider)
+  //     .then(function (result) {
+  //       alert.success("Log in successfully!");
+  //       setUser(result.user);
+  //       hist.push({
+  //         pathname: "/home",
+  //         query: { user: user },
+  //       });
+  //       // ...
+  //     })
+  //     .catch(function (error) {
+  //       // Handle Errors here.
+  //       // var errorCode = error.code;
+  //       // var errorMessage = error.message;
+  //       // // The email of the user's account used.
+  //       // var email = error.email;
+  //       // // The firebaseAuth.auth.AuthCredential type that was used.
+  //       // var credential = error.credential;
+  //       alert.error(error.message);
+  //     });
+  // };
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -273,7 +273,7 @@ export default function SignIn(props) {
           </Grid>
         </form>
 
-        <Box mt={2} className={classes.otherSignin} textAlign="center">
+        {/* <Box mt={2} className={classes.otherSignin} textAlign="center">
           <Divider light />
           <Typography variant="caption" component="span">
             or sign in with social networks
@@ -283,11 +283,10 @@ export default function SignIn(props) {
           <IconButton onClick={loginWithFacebook}>
             <FacebookIcon />
           </IconButton>
-          {/* <IconButton ><LinkedInIcon /></IconButton> */}
           <IconButton onClick={loginWithGithub}>
             <GitHubIcon style={{ fontSize: "18px" }} />
           </IconButton>
-        </Box>
+        </Box> */}
         <Box mt={2}>
           <Typography
             component="span"
