@@ -10,6 +10,7 @@ import landingPage from "./pages/landingPage";
 import newPwdPage from "./pages/newPwdPage";
 import signupPage from "./pages/signupPage";
 import homePage from "./pages/homePage";
+import policyPage from "./pages/policyPage";
 
 export default function App() {
   const [localStorageStatus, setLocalStorageStatus] = React.useState(window.localStorage);
@@ -22,6 +23,7 @@ export default function App() {
         <Route exact path="/signup" component={signupPage} />
         <Route exact path="/forgotpwd" component={newPwdPage} />
         <Route exact path="/home" render={() => (localStorageStatus.user ? <Route exact path="/home" component={homePage} /> : <Redirect to="/404" />)} ></Route>
+        <Route exact path="/terms" component={policyPage} />
         <Route exact path="/404" component={errorPage} />
         <Redirect from="/*" to="/404" />
       </Switch>

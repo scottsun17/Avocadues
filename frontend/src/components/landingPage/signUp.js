@@ -153,7 +153,7 @@ const SignUp = () => {
                 name="username"
                 ref={register({ required: true })}
                 className={classes.inputCard}
-                placeholder="Username *"
+                placeholder="Nickname *"
               />
               {errors.username && (
                 <Typography
@@ -226,7 +226,14 @@ const SignUp = () => {
             <Grid item xs={12}>
               <Checkbox size="small"></Checkbox>
               <Typography variant="caption" component="span">
-                I've read and agree with Terms of Service and our Privacy Policy
+                I've read and agree with
+                <Link
+                  style={{ textDecoration: "none" }}
+                  to="/terms"
+                >
+                  {" "} Terms of Service
+                </Link>
+                {" "} and our Privacy Policy
               </Typography>
             </Grid>
             <Grid item xs={12}>

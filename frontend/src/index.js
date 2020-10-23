@@ -11,6 +11,7 @@ import { createStore, applyMiddleware } from "redux";
 import promiseMiddleware from "redux-promise";
 import ReduxThunk from "redux-thunk";
 import rootReducer from "./redux/reducers";
+import FloatingActionButton from "./components/contactUs";
 
 import Alert from "@material-ui/lab/Alert";
 import {
@@ -63,6 +64,7 @@ ReactDOM.render(
     <ThemeProvider theme={theme}>
       <AlertProvider template={AlertTemplate} {...options}>
         <App />
+        <FloatingActionButton />
       </AlertProvider>
     </ThemeProvider>
   </Provider>,

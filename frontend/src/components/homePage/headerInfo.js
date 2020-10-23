@@ -95,9 +95,6 @@ const HeaderInfo = () => {
             )}
           </Grid>
           <Grid item xs="auto" align="right">
-            <IconButton style={{ marginRight: "6px" }}>
-              <AccountCircleIcon />
-            </IconButton>
             <IconButton onClick={signOut}>
               <ExitToAppIcon />
             </IconButton>
