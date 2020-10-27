@@ -3,13 +3,10 @@ server:
     servlet:
         context-path: /
     ssl:
-        key-store: classpath:keystore.p12
-        key-store-password: pk87654321
+        key-store: classpath:server.p12
+        key-store-password: Pk-87654321
         keyStoreType: PKCS12
-        keyAlias: tomcat
-        
-
-
+        keyAlias: 1
 
 # link to db driver
 spring:
