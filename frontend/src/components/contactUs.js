@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
         position: 'fixed',
         padding: theme.spacing(2, 3),
         bottom: theme.spacing(3.5),
-        right: theme.spacing(1.5),
+        left: theme.spacing(3),
     },
     popup: {
         height: 100,

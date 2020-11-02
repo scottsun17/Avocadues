@@ -4,19 +4,27 @@ import HeaderInfo from "../components/homePage/headerInfo";
 
 // material ui
 import { makeStyles } from "@material-ui/core/styles";
-import { Paper, Container, CssBaseline } from "@material-ui/core";
+import { Paper, Container, CssBaseline, Hidden } from "@material-ui/core";
 
 import CategoryList from "../components/homePage/categoryList";
 import useLocalStorage from "../components/useLocalStorage";
-// import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     borderRadius: theme.spacing(2),
-    margin: theme.spacing(0, 12),
-    height: "72vh",
+    height: "78vh",
     minHeight: 580,
-    minWidth: 800,
+    [theme.breakpoints.up('md')]: {
+      margin: '0 14%',
+    },
+    [theme.breakpoints.down('md')]: {
+      height: "80vh",
+      margin: '0 8%',
+    },
+    [theme.breakpoints.down('xs')]: {
+      height: "81vh",
+      margin: 8,
+    },
   },
   title: {
     marginTop: theme.spacing(2),
@@ -24,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
   backBtn: {
     marginTop: theme.spacing(4),
   },
+
 }));
 
 export const UserContext = React.createContext();
@@ -35,13 +44,11 @@ const Home = (props) => {
   return (
     <React.Fragment>
       <UserContext.Provider value={user}>
-        <Container component="main" maxWidth="lg">
-          <CssBaseline />
-          <Paper className={classes.root}>
-            <HeaderInfo />
-            <CategoryList />
-          </Paper>
-        </Container>
+        <CssBaseline />
+        <Paper className={classes.root}>
+          <HeaderInfo />
+          <CategoryList />
+        </Paper>
       </UserContext.Provider>
     </React.Fragment>
   );

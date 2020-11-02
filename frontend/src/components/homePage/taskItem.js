@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     top: 2,
     right: 6,
-    // marginRight: theme.spacing(2),
   },
 }));
 

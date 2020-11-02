@@ -6,7 +6,9 @@ import {
   Box,
   Button,
   ButtonBase,
+  Fab,
   Grid,
+  Hidden,
   List,
   ListItem,
   Modal,
@@ -38,6 +40,9 @@ const useStyles = makeStyles((theme) => ({
     minHeight: "60vh",
     borderRadius: theme.spacing(4),
     padding: theme.spacing(4, 3, 1, 3),
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(2, 1, 0.5, 1),
+    },
   },
   createBtn: {
     width: 52,
@@ -45,17 +50,42 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#aed581",
     borderRadius: "50%",
     color: "white",
+    [theme.breakpoints.down('sm')]: {
+      width: 36,
+      height: 36,
+    },
+  },
+  addIcon: {
+    fontSize: 32,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 24,
+    }
   },
   panel: {
     padding: theme.spacing(4),
+    [theme.breakpoints.down('xs')]: {
+      padding: theme.spacing(2),
+    },
   },
 
   list: {
     overflow: "auto",
     maxHeight: "35vh",
+    [theme.breakpoints.down('xs')]: {
+      maxHeight: "40vh",
+    }
+  },
+  taskcontent: {
+    height: "300px",
   },
   header: {
     paddingRight: theme.spacing(2),
+  },
+  fab: {
+    position: 'fixed',
+    padding: theme.spacing(2, 3),
+    bottom: theme.spacing(4),
+    right: theme.spacing(6),
   },
   // modal
   modal: {
@@ -94,15 +124,16 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 6),
     flexGrow: 1,
   },
-  taskcontent: {
-    height: "300px",
-  },
+
 }));
 
 const MyTabs = withStyles((theme) => ({
   root: {
     borderBottom: "1px solid #f1f2f6",
     maxWidth: 418,
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: '100%',
+    },
     paddingLeft: theme.spacing(2),
   },
   indicator: {
@@ -118,12 +149,18 @@ const MyTab = withStyles((theme) => ({
     transition: "easeInOut 0.4s",
     fontSize: 18,
     padding: 0,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 16,
+    },
     "&:hover": {
       fontSize: "2.2rem",
       color: "#A4C1A1",
       opacity: 1,
       marginBottom: theme.spacing(1),
       fontWeight: theme.typography.fontWeightMedium,
+      [theme.breakpoints.down('xs')]: {
+        fontSize: "1.5rem",
+      }
     },
     "&$selected": {
       color: "#A4C1A1",
@@ -136,6 +173,9 @@ const MyTab = withStyles((theme) => ({
   },
   selected: {
     fontSize: "2.2rem",
+    [theme.breakpoints.down('xs')]: {
+      fontSize: "1.5rem",
+    }
   },
 }))((props) => <Tab disableRipple {...props} />);
 
@@ -240,16 +280,18 @@ export default function TaskList(props) {
             </MyTabs>
           </Grid>
           <Grid item>
-            <motion.div whileHover={{ scale: 1.1 }}>
-              <ButtonBase
-                variant="contained"
-                color="primary"
-                className={classes.createBtn}
-                onClick={handleOpen}
-              >
-                <AddIcon fontSize="large" />
-              </ButtonBase>
-            </motion.div>
+            <Hidden xsDown>
+              <motion.div whileHover={{ scale: 1.1 }}>
+                <ButtonBase
+                  variant="contained"
+                  color="primary"
+                  className={classes.createBtn}
+                  onClick={handleOpen}
+                >
+                  <AddIcon className={classes.addIcon} />
+                </ButtonBase>
+              </motion.div>
+            </Hidden>
             <Modal
               className={classes.modal}
               open={open}
@@ -412,6 +454,11 @@ export default function TaskList(props) {
             )}
           </List>
         </TabPanel>
+        <Hidden smUp>
+          <Fab className={classes.fab} color="primary" onClick={handleOpen} style={{ color: "#fff" }}>
+            <AddIcon/>
+          </Fab>
+        </Hidden>
       </div>
     </React.Fragment>
   );

@@ -23,6 +23,10 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(10),
     borderRadius: theme.spacing(2, 2, 0, 0),
     padding: theme.spacing(3, 6, 0, 6),
+    [theme.breakpoints.down('xs')]: {
+      height: theme.spacing(8),
+      padding: theme.spacing(1.5, 2.5, 0, 2.5),
+    },
   },
   title: {
     color: "#2F4851",
@@ -32,6 +36,12 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: 11,
     height: 46,
   },
+  logo: {
+    width: 200,
+    [theme.breakpoints.down('xs')]: {
+      width: 140,
+    },
+  }
 }));
 
 const HeaderInfo = () => {
@@ -75,7 +85,7 @@ const HeaderInfo = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.8 }}
             >
-              <img width="200px" src={img} alt="logo" />
+              <img className={classes.logo} src={img} alt="logo" />
             </motion.div>
           </Grid>
           <Grid item xs className={classes.userInfo}>
@@ -84,7 +94,6 @@ const HeaderInfo = () => {
                 align="right"
                 component="p"
                 variant="body1"
-                style={{ marginRight: 8 }}
               >
                 Hello, {user.displayName}
               </Typography>
