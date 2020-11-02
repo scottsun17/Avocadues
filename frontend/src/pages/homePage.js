@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     height: "78vh",
     minHeight: 580,
     [theme.breakpoints.up('md')]: {
-      margin: '0 14%',
+      margin: '0 16%',
     },
     [theme.breakpoints.down('md')]: {
       height: "80vh",
