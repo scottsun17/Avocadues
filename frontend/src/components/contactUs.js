@@ -25,10 +25,11 @@ const useStyles = makeStyles((theme) => ({
         left: theme.spacing(3),
     },
     popup: {
-        height: 100,
+        height: 90,
         maxWidth: 1920,
         [theme.breakpoints.down('xs')]: {
-            height: 80,
+            paddingTop: 12,
+            height: 240,
         }
     },
     link: {
@@ -86,28 +87,27 @@ export default function FloatingActionButton() {
                                     direction="row"
                                     justify="space-evenly"
                                     alignItems="center"
+                                    spacing={4}
                                     style={{height: '100%'}}
                                 >
-                                    <Grid item xs align="center" container direction="row" justify="center" alignItems="center" spacing={2}>
-                                        <Grid xs item align="right"><Avatar className={classes.pink}>D</Avatar></Grid>
+                                    <Grid item xs={12} sm align="center" container direction="row" justify="center" alignItems="center" spacing={2}>
+                                        <Grid xs={5} item align="right"><Avatar className={classes.pink}>D</Avatar></Grid>
                                         <Grid xs item align="left"><Button component="div"><a href="https://thedannihuang.com/" style={{ textDecoration: "none", color: "#333" }}><Typography variant="body1" component="div" > Danni Huang </Typography></a></Button></Grid>
                                     </Grid>
-                                    <Grid item xs align="center" container direction="row" justify="center" alignItems="center" spacing={2}>
-                                        <Grid xs item align="right"><Avatar className={classes.brown}>G</Avatar></Grid>
+                                    <Grid item xs={12} sm align="center" container direction="row" justify="center" alignItems="center" spacing={2}>
+                                        <Grid xs={5} item align="right"><Avatar className={classes.brown}>G</Avatar></Grid>
                                         <Grid xs item align="left"><Button component="div"><a href="https://guanggeng-website.web.app/" style={{ textDecoration: "none", color: "#333" }}><Typography variant="body1" component="div"> Guanggeng Yang </Typography></a></Button></Grid>
                                     </Grid>
-                                    <Grid item xs align="center" container direction="row" justify="center" alignItems="center" spacing={2}>
-                                        <Grid xs item align="right"><Avatar className={classes.green}>S</Avatar></Grid>
+                                    <Grid item xs={12} sm align="center" container direction="row" justify="center" alignItems="center" spacing={2}>
+                                        <Grid xs={5} item align="right"><Avatar className={classes.green}>S</Avatar></Grid>
                                         <Grid xs item align="left"><Button component="div"><a href="https://codebyscott.dev/" style={{ textDecoration: "none", color:"#333" }}><Typography variant="body1" component="div" > Scott Sun </Typography></a></Button></Grid>
                                     </Grid>
-                                    
-                                    
                                 </Grid>
                             </div>
                         </Box>
                     </Grid>
                     <Grid item xs={12} sm={2} align="center">
-                        <Button variant="outlined" color="primary" onClick={toggleDrawer()}>
+                        <Button variant="outlined" color="primary" onClick={toggleDrawer()} style={{marginBottom: 12}}>
                             <CloseIcon color="primary" style={{ fontSize: 20, marginRight: 10 }} />
                             <Typography variant='subtitle2' display='inline'>Close</Typography>
                         </Button>
